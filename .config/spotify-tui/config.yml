@@ -1,0 +1,39 @@
+theme:
+  active: "#c77dff"
+  banner: "#e0aaff"
+  error_border: "#ff006e"
+  error_text: "#ff006e"
+  hint: "#9d4edd"
+  hovered: "#7b2cbf"
+  inactive: "#5a189a"
+  playbar_background: "#240046"
+  playbar_progress: "#c77dff"
+  playbar_progress_text: "#e0aaff"
+  playbar_text: "#e0aaff"
+  selected: "#9d4edd"
+  text: "#e0aaff"
+  header: "#c77dff"
+
+behavior:
+  seek_milliseconds: 5000
+  volume_increment: 10
+  tick_rate_milliseconds: 250
+  enable_text_emphasis: true
+  show_loading_indicator: true
+  set_window_title: true
+
+keybindings:
+  back: "Esc"
+  jump_to_album: "a"
+  jump_to_artist_album: "A"
+  jump_to_context: "o"
+  manage_devices: "d"
+  next_track: "n"
+  previous_track: "p"
+  quit: "q"
+  repeat: "r"
+  search: "/"
+  shuffle: "s"
+  toggle_playback: "Space"
+  volume_down: "-"
+  volume_up: "+"
