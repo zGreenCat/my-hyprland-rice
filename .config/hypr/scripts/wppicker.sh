@@ -20,29 +20,19 @@ hyprctl hyprpaper listloaded 2>/dev/null | while read -r wp; do
 done
 
 # === SET WALLPAPER WITH HYPRPAPER ===
-# Preload the new wallpaper
 hyprctl hyprpaper preload "$SELECTED_PATH"
 
-# Get all monitors and set wallpaper on each
-hyprctl monitors -j | jq -r '.[].name' | while read -r monitor; do
+hyprctl monitors -j | jq -r '.[].name' 2>/dev/null | while read -r monitor; do
     hyprctl hyprpaper wallpaper "$monitor,$SELECTED_PATH"
 done
 
-# Also set for default (no monitor specified)
 hyprctl hyprpaper wallpaper ",$SELECTED_PATH"
 
 # === UPDATE CONFIG FILE ===
 cat > ~/.config/hypr/hyprpaper.conf << CONF
-# Preload wallpapers
 preload = $SELECTED_PATH
-
-# Set wallpaper for all monitors
 wallpaper = ,$SELECTED_PATH
-
-# Splash screen
 splash = false
-
-# ipc
 ipc = on
 CONF
 
@@ -50,10 +40,18 @@ CONF
 mkdir -p "$(dirname "$SYMLINK_PATH")"
 ln -sf "$SELECTED_PATH" "$SYMLINK_PATH"
 
-# === TODO: MATUGEN (descomentar cuando esté instalado) ===
-# if command -v matugen &> /dev/null; then
-#     matugen image "$SELECTED_PATH"
-#     ~/.config/hypr/scripts/wbrestart.sh
-# fi
+# === MATUGEN - Generate colors from wallpaper ===
+if command -v matugen &> /dev/null; then
+    # Generate pywal-compatible colors
+    matugen image "$SELECTED_PATH" 2>/dev/null
+    
+    # Reload waybar to apply new colors
+    sleep 0.3
+    ~/.config/hypr/scripts/wbrestart.sh &
+    
+    # Reload Hyprland to apply border colors
+    sleep 0.5
+    hyprctl reload &
+fi
 
-notify-send "🎨 Wallpaper cambiado" "$SELECTED_WALL" -t 2000
+notify-send "🎨 Wallpaper y tema cambiados" "$SELECTED_WALL" -t 2000
