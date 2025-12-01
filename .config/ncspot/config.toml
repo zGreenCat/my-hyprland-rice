@@ -1,0 +1,37 @@
+[theme]
+background = "#10002b"
+primary = "#c77dff"
+secondary = "#7b2cbf"
+title = "#e0aaff"
+playing = "#c77dff"
+playing_selected = "#e0aaff"
+playing_bg = "#240046"
+highlight = "#9d4edd"
+highlight_bg = "#3c096c"
+error = "#ff006e"
+error_bg = "#240046"
+statusbar = "#10002b"
+statusbar_progress = "#c77dff"
+statusbar_bg = "#240046"
+cmdline = "#e0aaff"
+cmdline_bg = "#10002b"
+
+[keybindings]
+"Ctrl+c" = "quit"
+"q" = "quit"
+"?" = "help"
+"/" = "search"
+"Esc" = "back"
+"Space" = "playpause"
+"n" = "next"
+"p" = "previous"
+"+" = "volup 5"
+"-" = "voldown 5"
+"Enter" = "play"
+
+[audio]
+backend = "pulseaudio"
+bitrate = 320
+normalisation = true
+
+use_nerdfont = true
