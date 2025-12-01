@@ -225,3 +225,29 @@ Este proyecto es de uso libre. Siéntete libre de usar, modificar y compartir.
 ---
 
 ⭐ Si te gusta este rice, dale una estrella al repo!
+
+## 🆕 Nuevas Features
+
+### 🔒 Hyprlock
+Pantalla de bloqueo personalizada con:
+- Wallpaper con blur y efectos
+- Reloj grande en morado espacial
+- Fecha y usuario
+- Indicador de batería
+- **Keybind**: `Super + L`
+
+### 🔌 Wlogout  
+Menú de salida elegante con opciones:
+- 🔒 Lock
+- 🚪 Logout
+- 😴 Suspend
+- 💤 Hibernate
+- 🔴 Shutdown
+- 🔄 Reboot
+- **Keybind**: `Super + X`
+
+### 🖥️ Multi-Monitor
+Controles para múltiples pantallas:
+- `Super + Shift + H/L` - Mover ventana entre monitores
+- `Super + Ctrl + Shift + ←/→` - Mover workspace completo
+- `Super + Alt + ←/→` - Cambiar foco entre monitores
