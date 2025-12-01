@@ -1,0 +1,30 @@
+{
+    "search_music": true,
+    "order": "relevance",
+    "user_order": "relevance",
+    "max_results": 50,
+    "console_width": 80,
+    "max_res": 2160,
+    "player": "mpv",
+    "playerargs": "--really-quiet --no-video",
+    "encoder": 0,
+    "notifier": "",
+    "checkupdate": false,
+    "show_mplayer_keys": true,
+    "fullscreen": false,
+    "show_status": true,
+    "columns": "date",
+    "ddir": "~/Downloads",
+    "overwrite": true,
+    "show_video": false,
+    "search_album_art": true,
+    "audio_format": "auto",
+    "video_format": "auto",
+    "api_key": "",
+    "color": true,
+    "colors": {
+        "title": "3",
+        "normal": "7",
+        "dim": "8"
+    }
+}
