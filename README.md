@@ -23,41 +23,85 @@ Rice minimalista y elegante inspirado en el cosmos, con animaciones suaves y col
 
 ### Requisitos previos
 
-Ver archivo [DEPENDENCIES.md](DEPENDENCIES.md) para la lista completa de dependencias.
+**Verifica las dependencias completas en [DEPENDENCIES.md](DEPENDENCIES.md)**
 
 **Instalación rápida de dependencias:**
 ```bash
 # Paquetes oficiales
 sudo pacman -S --needed hyprland waybar rofi kitty swww swaync wlogout \
     hyprlock hypridle brightnessctl pamixer playerctl grim slurp swappy \
-    polkit-gnome network-manager-applet blueman hyprpicker
+    polkit-gnome network-manager-applet blueman hyprpicker zsh \
+    ttf-jetbrains-mono-nerd ttf-font-awesome papirus-icon-theme
 
-# Paquetes de AUR
+# Paquetes de AUR (necesitas yay instalado)
 yay -S --needed matugen-bin
 ```
 
-### Instalación del rice
+### 🚀 Instalación Automática
 
 ```bash
 # 1. Clonar el repositorio
 git clone https://github.com/TU_USUARIO/my-hyprland-rice.git
 cd my-hyprland-rice
 
-# 2. Hacer backup de tus configs actuales (importante!)
+# 2. Ejecutar instalador (hace backup automático)
+./install.sh
+
+# 3. Recargar Hyprland o reiniciar sesión
+hyprctl reload
+# O: Super + Shift + E → Logout
+```
+
+### 🔧 Instalación Manual
+
+Si prefieres control total:
+
+```bash
+# 1. Backup manual de tus configs
 mkdir -p ~/.config-backup
 cp -r ~/.config/hypr ~/.config-backup/
 cp -r ~/.config/waybar ~/.config-backup/
-# ... repetir para cada config que quieras respaldar
+# ... repetir para cada config
 
-# 3. Copiar configuraciones
+# 2. Copiar configuraciones
 cp -r .config/* ~/.config/
 
-# 4. Copiar wallpapers
+# 3. Copiar wallpapers
 mkdir -p ~/Pictures/wallpapers
 cp -r wallpapers/* ~/Pictures/wallpapers/
 
-# 5. Recargar Hyprland
+# 4. Hacer scripts ejecutables
+chmod +x ~/.config/hypr/scripts/*.sh
+
+# 5. Recargar
 hyprctl reload
+```
+
+## 🎨 Configuración Inicial
+
+### 1. Seleccionar tu primer wallpaper
+
+```bash
+# Presiona Super + W para abrir el picker
+# O ejecuta manualmente:
+~/.config/hypr/scripts/wppicker.sh
+```
+
+Matugen generará automáticamente los colores para todo el sistema.
+
+### 2. Descargar más wallpapers
+
+Revisa [WALLPAPERS.md](WALLPAPERS.md) para una lista curada de wallpapers espaciales morados recomendados.
+
+### 3. Ajustar colores base (opcional)
+
+Si quieres una palette morada específica sin depender del wallpaper:
+
+```bash
+# Editar colores base
+nano ~/.config/hypr/colors-base.conf
+
+# Los colores se usan como fallback o base
 ```
 
 ## ⌨️ Keybindings
