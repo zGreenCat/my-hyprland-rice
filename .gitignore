@@ -1,0 +1,13 @@
+# Archivos temporales
+*.log
+*.cache
+*.swp
+*~
+
+# Archivos personales
+.env
+*.secret
+
+# Backups
+*.bak
+*.backup
