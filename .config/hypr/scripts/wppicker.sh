@@ -6,23 +6,21 @@ SYMLINK_PATH="$HOME/.config/hypr/current_wallpaper"
 
 cd "$WALLPAPER_DIR" || exit 1
 
-# === SELECTION WITH WOFI ===
-SELECTED_WALL=$(ls -t *.jpg *.png *.gif *.jpeg 2>/dev/null | wofi --dmenu -p "Selecciona wallpaper" -i)
+# === SELECTION WITH ROFI (with image preview) ===
+SELECTED_WALL=$(ls -t *.jpg *.png *.gif *.jpeg 2>/dev/null | while read -r img; do
+    echo -en "$img\x00icon\x1f$WALLPAPER_DIR/$img\n"
+done | rofi -dmenu -i -p "Selecciona wallpaper" -show-icons)
 
 [ -z "$SELECTED_WALL" ] && exit 1
 SELECTED_PATH="$WALLPAPER_DIR/$SELECTED_WALL"
 
 # === UNLOAD OLD WALLPAPERS ===
-# Get current wallpapers and unload them
 hyprctl hyprpaper listloaded | while read -r wp; do
     [ -n "$wp" ] && hyprctl hyprpaper unload "$wp"
 done
 
 # === SET WALLPAPER WITH HYPRPAPER ===
-# Preload the new wallpaper
 hyprctl hyprpaper preload "$SELECTED_PATH"
-
-# Set it on all monitors
 hyprctl hyprpaper wallpaper ",$SELECTED_PATH"
 
 # === UPDATE CONFIG FILE ===
