@@ -1,0 +1,42 @@
+[theme]
+name = "Space Purple"
+
+# Colores del tema morado espacial
+[themes.space_purple]
+background = "#10002b"
+foreground = "#e0aaff"
+black = "#240046"
+red = "#c77dff"
+green = "#7b2cbf"
+yellow = "#9d4edd"
+blue = "#5a189a"
+magenta = "#c77dff"
+cyan = "#e0aaff"
+white = "#f0f0f0"
+bright_black = "#3c096c"
+bright_red = "#e0aaff"
+bright_green = "#9d4edd"
+bright_yellow = "#c77dff"
+bright_blue = "#7b2cbf"
+bright_magenta = "#e0aaff"
+bright_cyan = "#f0f0f0"
+bright_white = "#ffffff"
+
+# Configuración general
+[app_config]
+enable_notify = true
+enable_cover_image_cache = true
+default_device = "spotify-player"
+
+# Comportamiento
+[behavior]
+seek_duration_secs = 5
+volume_step = 5
+
+# Interfaz
+[device]
+name = "spotify-player"
+device_type = "computer"
+volume = 70
+normalization = true
+autoplay = true
