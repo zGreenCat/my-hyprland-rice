@@ -15,12 +15,20 @@ done | rofi -dmenu -i -p "Selecciona wallpaper" -show-icons)
 SELECTED_PATH="$WALLPAPER_DIR/$SELECTED_WALL"
 
 # === UNLOAD OLD WALLPAPERS ===
-hyprctl hyprpaper listloaded | while read -r wp; do
-    [ -n "$wp" ] && hyprctl hyprpaper unload "$wp"
+hyprctl hyprpaper listloaded 2>/dev/null | while read -r wp; do
+    [ -n "$wp" ] && hyprctl hyprpaper unload "$wp" 2>/dev/null
 done
 
 # === SET WALLPAPER WITH HYPRPAPER ===
+# Preload the new wallpaper
 hyprctl hyprpaper preload "$SELECTED_PATH"
+
+# Get all monitors and set wallpaper on each
+hyprctl monitors -j | jq -r '.[].name' | while read -r monitor; do
+    hyprctl hyprpaper wallpaper "$monitor,$SELECTED_PATH"
+done
+
+# Also set for default (no monitor specified)
 hyprctl hyprpaper wallpaper ",$SELECTED_PATH"
 
 # === UPDATE CONFIG FILE ===
@@ -28,7 +36,7 @@ cat > ~/.config/hypr/hyprpaper.conf << CONF
 # Preload wallpapers
 preload = $SELECTED_PATH
 
-# Set wallpaper
+# Set wallpaper for all monitors
 wallpaper = ,$SELECTED_PATH
 
 # Splash screen
