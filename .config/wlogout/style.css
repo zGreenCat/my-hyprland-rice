@@ -3,7 +3,6 @@
     background-image: none;
     font-size: 18px;
     font-family: "JetBrains Mono NFM", sans-serif;
-    color: #c77dff;
 }
 
 window {
@@ -14,70 +13,47 @@ button {
     border-radius: 16px;
     margin: 15px;
     padding: 30px;
+    min-width: 150px;
+    min-height: 150px;
     color: #e0aaff;
     border: 3px solid #7b2cbf;
     background-color: rgba(36, 0, 70, 0.8);
-    outline-style: none;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 40%;
+    background-size: 50%;
     box-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
-button:hover,
-button:focus {
+button:hover {
     background-color: rgba(123, 44, 191, 0.9);
     border-color: #c77dff;
-    background-size: 50%;
+    background-size: 60%;
     box-shadow: 0 6px 30px rgba(199, 125, 255, 0.7);
     transform: scale(1.08);
     color: #ffffff;
 }
 
-button:active {
-    background-color: #7b2cbf;
-    transform: scale(0.96);
-}
-
 #lock {
-    background-image: image(url("icons/lock.png"));
-}
-#lock:hover {
-    background-image: image(url("icons/lock-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/lock.png");
 }
 
 #logout {
-    background-image: image(url("icons/logout.png"));
-}
-#logout:hover {
-    background-image: image(url("icons/logout-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/logout.png");
 }
 
 #suspend {
-    background-image: image(url("icons/sleep.png"));
-}
-#suspend:hover {
-    background-image: image(url("icons/sleep-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/sleep.png");
 }
 
 #hibernate {
-    background-image: image(url("icons/hibernate.png"));
-}
-#hibernate:hover {
-    background-image: image(url("icons/hibernate-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/hibernate.png");
 }
 
 #shutdown {
-    background-image: image(url("icons/power.png"));
-}
-#shutdown:hover {
-    background-image: image(url("icons/power-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/power.png");
 }
 
 #reboot {
-    background-image: image(url("icons/restart.png"));
-}
-#reboot:hover {
-    background-image: image(url("icons/restart-hover.png"));
+    background-image: url("/home/zgreencat/.config/wlogout/icons/restart.png");
 }
