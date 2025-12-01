@@ -11,13 +11,13 @@ window {
 button {
     border-radius: 20px;
     margin: 25px;
-    padding: 50px 40px;
+    padding: 60px 40px 30px 40px;
     color: #e0aaff;
     border: 3px solid #7b2cbf;
     background-color: rgba(36, 0, 70, 0.8);
     background-repeat: no-repeat;
-    background-position: center 35%;
-    background-size: 45%;
+    background-position: center 25%;
+    background-size: 40%;
     min-width: 200px;
     min-height: 200px;
 }
@@ -25,8 +25,8 @@ button {
 button:hover {
     background-color: rgba(123, 44, 191, 0.9);
     border-color: #c77dff;
-    background-position: center 32%;
-    background-size: 50%;
+    background-position: center 22%;
+    background-size: 45%;
     color: #ffffff;
 }
 
