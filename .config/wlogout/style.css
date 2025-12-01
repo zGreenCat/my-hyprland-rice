@@ -1,66 +1,63 @@
+/* Space Theme Wlogout */
 * {
     background-image: none;
     font-size: 20px;
     font-family: "JetBrains Mono NFM";
 }
 
-@import '../../.config/waybar/colors.css';
-
 window {
-    background-color: rgba(17, 17, 17, 0.45)
+    background-color: rgba(16, 0, 43, 0.9);
 }
 
 button {
     border-radius: 20px;
-    margin: 10px;
-    color: @inverse_surface;
-    border-color: @inverse_surface;
-    background-color: rgba(0, 0, 0, 0.5);
+    margin: 20px;
+    padding: 20px;
+    color: #c77dff;
+    border: 3px solid #7b2cbf;
+    background-color: rgba(36, 0, 70, 0.7);
     outline-style: none;
-    border-style: solid;
-	border-width: 0px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 20%;
-    box-shadow: none;
-    text-shadow: none;
-    animation: gradient_f 20s ease-in infinite;
+    background-size: 25%;
+    box-shadow: 0 4px 15px rgba(199, 125, 255, 0.3);
+    transition: all 0.3s ease;
 }
 
-button:hover,button:focus {
-    background-color: @on_secondary_fixed_variant;
-    background-size: 30%;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,0.0,.28,1.682);
+button:hover,
+button:focus {
+    background-color: rgba(123, 44, 191, 0.8);
+    border-color: #c77dff;
+    background-size: 35%;
+    box-shadow: 0 6px 20px rgba(199, 125, 255, 0.5);
+    transform: scale(1.05);
 }
 
-/* Adjust the size of the icon or content inside the button */
-button span {
-    font-size: 1.2em; /* Increase the font size */
+button:active {
+    background-color: #7b2cbf;
+    transform: scale(0.95);
 }
-
 
 #lock {
-    background-image: image(url("./icons/lock.png"));
+    background-image: image(url("icons/lock.png"));
 }
 
 #logout {
-    background-image: image(url("./icons/logout.png"));
+    background-image: image(url("icons/logout.png"));
 }
 
 #suspend {
-    background-image: image(url("./icons/sleep.png"));
-}
-
-#shutdown {
-    background-image: image(url("./icons/power.png"));
-}
-
-#reboot {
-    background-image: image(url("./icons/restart.png"));
+    background-image: image(url("icons/suspend.png"));
 }
 
 #hibernate {
-    background-image: image(url("./icons/hibernate.png"));
+    background-image: image(url("icons/hibernate.png"));
 }
 
+#shutdown {
+    background-image: image(url("icons/shutdown.png"));
+}
+
+#reboot {
+    background-image: image(url("icons/reboot.png"));
+}
