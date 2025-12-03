@@ -300,30 +300,30 @@
 },
 
 "pulseaudio": {
-	"format": "{icon} {volume}%",
-	"format-bluetooth": "{icon} 󰂰 {volume}%",
-	"format-muted": "󰖁",
-	"format-icons": {
-		"headphone": "",
-		"hands-free": "",
-		"headset": "",
-		"phone": "",
-		"portable": "",
-		"car": "",
-		"default": [
-			"", "", "󰕾",  ""
-		],
-		"ignored-sinks": [
-			"Easy Effects Sink"
-		],
-	},
-	"scroll-step": 5.0,
-	"on-click": "pavucontrol",
-	"on-click-right": "$HOME/.config/hypr/scripts/volume.sh --toggle",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/volume.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/volume.sh --dec",
-	"tooltip-format": "{icon} {desc} | {volume}%\nClick: Volume Control | Right Click: Mute | Scroll: Volume",
-	"smooth-scrolling-threshold": 1,
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} 󰂰 {volume}%",
+        "format-muted": "󰖁",
+        "format-icons": {
+                "headphone": "",
+                "hands-free": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": "",
+                "default": [
+                        "", "", "󰕾",  ""
+                ],
+                "ignored-sinks": [
+                        "Easy Effects Sink"
+                ],
+        },
+        "scroll-step": 5,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+        "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "tooltip-format": "{icon} {desc} | {volume}%",
+        "smooth-scrolling-threshold": 1,
 },
 
 "pulseaudio#1": {
