@@ -12,3 +12,4 @@ grim -g "$(slurp)" screenshots/mi-setup-20251201.png
 grim screenshots/fullscreen-20251201.png
 ```
 
+3s

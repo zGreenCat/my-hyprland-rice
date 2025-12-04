@@ -27,32 +27,41 @@ copy_config "$CONFIG_DIR/hypr/hyprland.conf" "$REPO_DIR/.config/hypr/" "hyprland
 copy_config "$CONFIG_DIR/hypr/colors.conf" "$REPO_DIR/.config/hypr/" "colors.conf"
 copy_config "$CONFIG_DIR/hypr/hypridle.conf" "$REPO_DIR/.config/hypr/" "hypridle.conf"
 copy_config "$CONFIG_DIR/hypr/hyprlock.conf" "$REPO_DIR/.config/hypr/" "hyprlock.conf"
-copy_config "$CONFIG_DIR/hypr/configs/"* "$REPO_DIR/.config/hypr/configs/" "configs/"
-copy_config "$CONFIG_DIR/hypr/scripts/"* "$REPO_DIR/.config/hypr/scripts/" "scripts/"
+
+# Copiar configs individuales (evita sobreescribir accidentalmente)
+echo "📁 Hypr configs..."
+for file in "$CONFIG_DIR/hypr/configs/"*; do
+    [ -f "$file" ] && cp "$file" "$REPO_DIR/.config/hypr/configs/"
+done
+
+echo "📁 Hypr scripts..."
+for file in "$CONFIG_DIR/hypr/scripts/"*; do
+    [ -f "$file" ] && cp "$file" "$REPO_DIR/.config/hypr/scripts/"
+done
 
 # Waybar
 echo "📁 Waybar..."
-copy_config "$CONFIG_DIR/waybar/"* "$REPO_DIR/.config/waybar/" "waybar"
+[ -d "$CONFIG_DIR/waybar" ] && cp -r "$CONFIG_DIR/waybar/"* "$REPO_DIR/.config/waybar/" 2>/dev/null
 
 # Kitty
 echo "📁 Kitty..."
-copy_config "$CONFIG_DIR/kitty/"* "$REPO_DIR/.config/kitty/" "kitty"
+[ -d "$CONFIG_DIR/kitty" ] && cp -r "$CONFIG_DIR/kitty/"* "$REPO_DIR/.config/kitty/" 2>/dev/null
 
 # Rofi
 echo "📁 Rofi..."
-copy_config "$CONFIG_DIR/rofi/"* "$REPO_DIR/.config/rofi/" "rofi"
+[ -d "$CONFIG_DIR/rofi" ] && cp -r "$CONFIG_DIR/rofi/"* "$REPO_DIR/.config/rofi/" 2>/dev/null
 
 # Matugen
 echo "📁 Matugen..."
-copy_config "$CONFIG_DIR/matugen/"* "$REPO_DIR/.config/matugen/" "matugen"
+[ -d "$CONFIG_DIR/matugen" ] && cp -r "$CONFIG_DIR/matugen/"* "$REPO_DIR/.config/matugen/" 2>/dev/null
 
 # SwayNC
 echo "📁 SwayNC..."
-copy_config "$CONFIG_DIR/swaync/"* "$REPO_DIR/.config/swaync/" "swaync"
+[ -d "$CONFIG_DIR/swaync" ] && cp -r "$CONFIG_DIR/swaync/"* "$REPO_DIR/.config/swaync/" 2>/dev/null
 
 # Wlogout
 echo "📁 Wlogout..."
-copy_config "$CONFIG_DIR/wlogout/"* "$REPO_DIR/.config/wlogout/" "wlogout"
+[ -d "$CONFIG_DIR/wlogout" ] && cp -r "$CONFIG_DIR/wlogout/"* "$REPO_DIR/.config/wlogout/" 2>/dev/null
 
 # Zshrc
 echo "📁 Shell..."

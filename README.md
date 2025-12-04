@@ -138,6 +138,7 @@ nano ~/.config/hypr/colors-base.conf
 | `Print` | Screenshot de área (con edición) |
 | `Super + Print` | Screenshot completa |
 | `Super + W` | Selector de wallpapers |
+| `Super + T` | 🎴 Toggle tema Dark/Light (animado 3D) |
 | `Super + C` | Color picker |
 | `Super + N` | Toggle notificaciones |
 | `Super + Shift + N` | Borrar notificaciones |
