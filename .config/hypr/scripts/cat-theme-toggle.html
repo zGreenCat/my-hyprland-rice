@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat Theme Toggle - Window Scene</title>
+    <title>Cat Theme Toggle</title>
     <style>
+        /* ═══════════════════════════════════════════════════════════
+           RESET Y BODY
+           ═══════════════════════════════════════════════════════════ */
         * {
             margin: 0;
             padding: 0;
@@ -18,190 +22,204 @@
             justify-content: center;
             min-height: 100vh;
             overflow: hidden;
-            font-family: 'JetBrainsMono Nerd Font', monospace;
         }
 
-        /* ════════════════════════════════════════════════════════════
-           🪟 VENTANA/TARJETA PRINCIPAL (Contenedor de escenas)
-           TODO: Ajusta tamaño de la ventana aquí
-           ════════════════════════════════════════════════════════════ */
-        .theme-toggle {
-            position: relative;
-            width: 280px;
-            height: 420px;
+        /* ═══════════════════════════════════════════════════════════
+           CONTENEDOR PRINCIPAL CON FLIP 3D
+           ═══════════════════════════════════════════════════════════ */
+        .toggle-wrapper {
             perspective: 1200px;
             cursor: pointer;
+        }
+
+        .toggle-wrapper:hover {
+            transform: scale(1.02);
             transition: transform 0.2s ease;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.02);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.98);
-        }
-
-        /* Contenedor de las escenas con efecto flip */
+        /* Contenedor de escenas con flip */
         .scenes-container {
             position: relative;
-            width: 100%;
-            height: 100%;
+            width: 350px;
+            height: 530px;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
-        /* TODO: Cambia duración del flip aquí (0.8s) */
         /* Flip cuando está en modo light */
         body.light .scenes-container {
             transform: rotateY(180deg);
         }
 
-        /* Escenas base (frente y reverso de la tarjeta) */
+        /* ═══════════════════════════════════════════════════════════
+           ESCENAS (frente y reverso)
+           ═══════════════════════════════════════════════════════════ */
         .scene {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* ════════════════════════════════════════════════════════════
-           🌙 ESCENA NOCTURNA (DARK MODE) - Frente de la tarjeta
-           TODO: Personaliza colores del cielo nocturno aquí
-           ════════════════════════════════════════════════════════════ */
         .scene--dark {
-            /* TODO: Cielo nocturno - Cambia colores aquí */
-            background: linear-gradient(180deg, 
-                #0a0e27 0%,      /* Azul muy oscuro arriba */
-                #1a1f3a 50%,     /* Azul medio */
-                #29467a 100%     /* Azul más claro abajo */
-            );
+            background-color: transparent;
             transform: rotateY(0deg);
         }
 
-        /* ════════════════════════════════════════════════════════════
-           ☀️ ESCENA DIURNA (LIGHT MODE) - Reverso de la tarjeta
-           TODO: Personaliza colores del cielo diurno aquí
-           ════════════════════════════════════════════════════════════ */
         .scene--light {
-            /* TODO: Cielo diurno - Cambia colores aquí */
-            background: linear-gradient(180deg, 
-                #87ceeb 0%,      /* Celeste claro arriba */
-                #ffd89b 40%,     /* Amarillo suave */
-                #ffa751 100%     /* Naranja abajo */
-            );
+            background-color: transparent;
             transform: rotateY(180deg);
         }
 
-        /* ════════════════════════════════════════════════════════════
-           🖼️ MARCO DE VENTANA
-           ════════════════════════════════════════════════════════════ */
-        .window-frame {
+        /* ═══════════════════════════════════════════════════════════
+           CONTAINER (del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
+        .container {
+            height: 530px;
+            width: 350px;
             position: absolute;
-            width: 240px;
-            height: 360px;
-            top: 30px;
-            left: 20px;
-            outline: 12px solid #2d2623;
-            border-left: 5px solid #439abf;
-            border-right: 5px solid #439abf;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* Travesaños horizontales de ventana */
-        .window-frame::before {
-            content: "";
-            position: absolute;
-            height: 15px;
-            width: 250px;
-            left: -5px;
-            top: 170px;
-            background: linear-gradient(#439abf 50%, #2d2623 50%);
-        }
-
-        .window-frame::after {
-            content: "";
-            position: absolute;
-            height: 15px;
-            width: 300px;
-            left: -30px;
-            bottom: -15px;
-            background: linear-gradient(#439abf 50%, #2d2623 50%);
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           ⛰️ MONTAÑAS DE FONDO (solo escena nocturna)
-           ════════════════════════════════════════════════════════════ */
-        .mountains {
-            position: absolute;
-            bottom: 40px;
-            width: 100%;
-            height: 120px;
-        }
-
-        .mountain {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-bottom: 60px solid #22366d;
-            border-right: 20px solid transparent;
-            border-left: 20px solid transparent;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
             bottom: 0;
         }
 
-        .mountain:nth-child(1) {
-            left: 10px;
+        /* ═══════════════════════════════════════════════════════════
+           WINDOW (del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
+        .window {
+            width: 250px;
+            height: 390px;
+            outline: 12px solid #2d2623;
+            border-left: 5px solid #439abf;
+            border-right: 5px solid #439abf;
+            position: relative;
+            top: 20px;
+            left: 45px;
         }
 
-        .mountain:nth-child(2) {
-            left: 60px;
-            border-bottom-width: 70px;
+        /* Fondo de ventana - Dark mode */
+        .scene--dark .window {
+            background-color: #29467a;
         }
 
-        .mountain:nth-child(3) {
-            left: 120px;
+        /* Fondo de ventana - Light mode */
+        .scene--light .window {
+            background: linear-gradient(180deg, #87ceeb 0%, #ffd89b 50%, #ffa751 100%);
         }
 
-        .mountain:nth-child(4) {
-            right: 30px;
-            border-bottom-width: 50px;
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           🐈 GATO (Reutilizado del CSS original)
-           TODO: Cambia colores del gato aquí
-           ════════════════════════════════════════════════════════════ */
-        .kitty {
-            position: absolute;
-            bottom: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 140px;
-            border-radius: 40px 40px 0 0;
-            transition: background-color 0.3s ease;
-            z-index: 5;
-        }
-
-        /* TODO: Color del GATO NEGRO (modo oscuro) - Cambia aquí */
-        .scene--dark .kitty {
-            background-color: #2d2623;  /* Marrón muy oscuro */
-        }
-
-        /* TODO: Color del GATO NARANJA (modo claro) - Cambia aquí */
-        .scene--light .kitty {
-            background-color: #ff8c42;  /* Naranja brillante */
-        }
-
-        /* Torso del gato (lado derecho redondeado) */
-        .kitty::before {
+        .window:before,
+        .window:after {
             content: "";
             position: absolute;
-            background-color: inherit;
+            background: linear-gradient(#439abf 50%, #2d2623 50%);
+        }
+
+        .window:after {
+            height: 15px;
+            width: 260px;
+            left: -5px;
+            top: 200px;
+        }
+
+        .window:before {
+            height: 15px;
+            width: 310px;
+            left: -30px;
+            bottom: -15px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MONTAÑAS (solo modo dark - del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
+        .mountain-1 {
+            height: 0;
+            width: 0;
+            border-bottom: 60px solid #22366d;
+            border-right: 20px solid transparent;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .mountain-1:before,
+        .mountain-1:after,
+        .mountain-2:before {
+            content: "";
+            position: absolute;
+            height: 0;
+            width: 0;
+            border-bottom: 60px solid #22366d;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+        }
+
+        .mountain-1:before {
+            bottom: -60px;
+            left: 5px;
+        }
+
+        .mountain-1:after {
+            bottom: -60px;
+            left: 35px;
+        }
+
+        .mountain-2 {
+            position: absolute;
+            height: 0;
+            width: 0;
+            border-bottom: 60px solid #22366d;
+            border-left: 20px solid transparent;
+            right: 0;
+            bottom: 0;
+        }
+
+        .mountain-2:before {
+            bottom: -60px;
+            right: 10px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           GATO (del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
+        .kitty {
+            height: 140px;
+            width: 50px;
+            position: absolute;
+            bottom: -15px;
+            left: 95px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        /* Color del gato - Dark mode */
+        .scene--dark .kitty {
+            background-color: #2d2623;
+        }
+
+        .scene--dark .kitty:before {
+            background-color: #2d2623;
+        }
+
+        .scene--dark .kitty:after {
+            background-color: #2d2623;
+        }
+
+        /* Color del gato - Light mode */
+        .scene--light .kitty {
+            background-color: #ff8c42;
+        }
+
+        .scene--light .kitty:before {
+            background-color: #ff8c42;
+        }
+
+        .scene--light .kitty:after {
+            background-color: #ff8c42;
+        }
+
+        .kitty:before {
+            content: "";
+            position: absolute;
             height: 80px;
             width: 40px;
             border-radius: 0 80px 80px 0;
@@ -209,11 +227,9 @@
             left: 43px;
         }
 
-        /* Cola del gato (animada) */
-        .kitty::after {
+        .kitty:after {
             content: "";
             position: absolute;
-            background-color: inherit;
             height: 80px;
             width: 10px;
             border-radius: 5px;
@@ -221,350 +237,212 @@
             left: 45px;
             transform: rotate(-15deg);
             transform-origin: top;
-            animation: tail-wag 4s ease-in-out infinite;
+            animation: tail 4s infinite;
         }
 
-        /* TODO: Ajusta velocidad de animación de cola aquí (4s = 4 segundos) */
-        @keyframes tail-wag {
-            0%, 100% {
-                transform: rotate(-15deg);
-            }
+        @keyframes tail {
             50% {
                 transform: rotate(10deg);
             }
         }
 
-        /* Contenedor de orejas */
+        /* ═══════════════════════════════════════════════════════════
+           OREJAS (del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
         .ear {
+            height: 0;
+            width: 0;
+            border-right: 33px solid transparent;
             position: relative;
             bottom: 12px;
         }
 
-        /* Oreja izquierda (triángulo) */
-        .ear::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-bottom: 40px solid transparent;
-            border-right: 33px solid transparent;
-            top: 0;
-            left: 0;
+        /* Color de orejas - Dark mode */
+        .scene--dark .ear {
+            border-bottom: 40px solid #2d2623;
         }
 
-        /* Oreja derecha (triángulo) */
-        .ear::before {
+        .scene--dark .ear:before {
+            border-bottom: 40px solid #2d2623;
+        }
+
+        /* Color de orejas - Light mode */
+        .scene--light .ear {
+            border-bottom: 40px solid #ff8c42;
+        }
+
+        .scene--light .ear:before {
+            border-bottom: 40px solid #ff8c42;
+        }
+
+        .ear:before {
             content: "";
             position: absolute;
-            width: 0;
             height: 0;
-            border-bottom: 40px solid transparent;
+            width: 0;
             border-left: 33px solid transparent;
-            top: 0;
-            right: -17px;
+            bottom: -40px;
+            left: 17px;
         }
 
-        /* TODO: Color de las orejas (sigue al cuerpo del gato) */
-        .scene--dark .ear::after {
-            border-bottom-color: #2d2623;
-        }
-
-        .scene--dark .ear::before {
-            border-bottom-color: #2d2623;
-        }
-
-        .scene--light .ear::after {
-            border-bottom-color: #ff8c42;
-        }
-
-        .scene--light .ear::before {
-            border-bottom-color: #ff8c42;
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           🌙 LUNA (solo escena nocturna)
-           TODO: Personaliza posición y color de la luna
-           ════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           LUNA (solo modo dark - del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
         .moon {
-            position: absolute;
-            width: 80px;
             height: 80px;
+            width: 80px;
             border-radius: 50%;
             background-color: transparent;
-            box-shadow: -15px 8px 0 1px #e8ae4a;  /* TODO: Color luna */
-            top: 70px;
-            left: 60px;
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           ⭐ ESTRELLAS (solo escena nocturna)
-           TODO: Personaliza cantidad y posición de estrellas
-           ════════════════════════════════════════════════════════════ */
-        .stars {
+            box-shadow: -15px 8px 0 1px #e8ae4a;
             position: absolute;
-            width: 100%;
-            height: 100%;
+            left: 50px;
+            top: 60px;
         }
 
+        /* ═══════════════════════════════════════════════════════════
+           ESTRELLAS (solo modo dark - del CSS original - IDÉNTICO)
+           ═══════════════════════════════════════════════════════════ */
         .star {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background-color: #e8ae4a;  /* TODO: Color estrellas */
+            background-color: #e8ae4a;
+            height: 6px;
+            width: 6px;
             border-radius: 50%;
-            animation: twinkle 2s ease-in-out infinite;
+            position: absolute;
+            top: 30px;
+            left: 140px;
+            box-shadow: 80px 65px #e8ae4a, -120px 150px #e8ae4a, -80px 280px #e8ae4a,
+                70px 235px #e8ae4a, 40px 135px #e8ae4a;
+            animation: twinkle 2s infinite;
         }
 
-        /* TODO: Ajusta velocidad de parpadeo de estrellas (2s) */
         @keyframes twinkle {
-            0%, 100% {
-                opacity: 1;
-            }
             50% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
         }
 
-        .star:nth-child(1) {
-            top: 40px;
-            left: 150px;
-            animation-delay: 0s;
-        }
-
-        .star:nth-child(2) {
-            top: 100px;
-            right: 40px;
-            width: 3px;
-            height: 3px;
-            animation-delay: 0.5s;
-        }
-
-        .star:nth-child(3) {
-            top: 150px;
-            left: 40px;
-            width: 5px;
-            height: 5px;
-            animation-delay: 1s;
-        }
-
-        .star:nth-child(4) {
-            top: 200px;
-            right: 80px;
-            animation-delay: 1.5s;
-        }
-
-        .star:nth-child(5) {
-            top: 120px;
-            left: 100px;
-            width: 3px;
-            height: 3px;
-            animation-delay: 0.8s;
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           ☀️ SOL (solo escena diurna)
-           TODO: Personaliza posición y color del sol
-           ════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           SOL (solo modo light - nuevo)
+           ═══════════════════════════════════════════════════════════ */
         .sun {
             position: absolute;
             width: 90px;
             height: 90px;
             border-radius: 50%;
             background: radial-gradient(circle, #ffeb3b 0%, #ffc107 100%);
-            box-shadow: 0 0 40px rgba(255, 235, 59, 0.8);  /* TODO: Brillo del sol */
+            box-shadow: 0 0 40px rgba(255, 235, 59, 0.8);
             top: 60px;
             right: 50px;
         }
 
-        /* Rayos del sol */
-        .sun::before,
-        .sun::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: inherit;
-            opacity: 0.3;
-        }
-
-        .sun::before {
-            transform: scale(1.2);
-        }
-
-        .sun::after {
-            transform: scale(1.4);
-            opacity: 0.15;
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           🏜️ SUELO/CÉSPED (solo escena diurna)
-           ════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           SUELO/CÉSPED (solo modo light - nuevo)
+           ═══════════════════════════════════════════════════════════ */
         .ground {
             position: absolute;
-            bottom: 35px;
+            bottom: 0;
             width: 100%;
-            height: 80px;
+            height: 60px;
             background: linear-gradient(180deg, #7cb342 0%, #558b2f 100%);
         }
 
-        /* Flores decorativas en el suelo */
-        .ground::before {
+        .ground:before {
             content: "🌸";
             position: absolute;
-            font-size: 20px;
-            bottom: 20px;
+            font-size: 18px;
+            bottom: 15px;
             left: 50px;
         }
 
-        .ground::after {
+        .ground:after {
             content: "🌼";
             position: absolute;
             font-size: 16px;
-            bottom: 30px;
+            bottom: 20px;
             right: 60px;
         }
 
-        /* ════════════════════════════════════════════════════════════
-           📝 LABEL (Texto del modo) - OCULTO para diseño más limpio
-           ════════════════════════════════════════════════════════════ */
-        .mode-label {
-            display: none;  /* Oculto - la animación y escena son suficientes */
-        }
-
-        /* ════════════════════════════════════════════════════════════
-           ✨ ANIMACIÓN DE ENTRADA
-           ════════════════════════════════════════════════════════════ */
-        @keyframes fadeInScale {
+        /* ═══════════════════════════════════════════════════════════
+           ANIMACIÓN DE ENTRADA
+           ═══════════════════════════════════════════════════════════ */
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: scale(0.8) translateY(20px);
+                transform: scale(0.9);
             }
+
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .theme-toggle {
-            animation: fadeInScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* Efecto de clic visual */
-        .theme-toggle.clicking {
-            animation: click-pulse 0.3s ease;
-        }
-
-        @keyframes click-pulse {
-            0% {
                 transform: scale(1);
             }
-            50% {
-                transform: scale(0.95);
-            }
-            100% {
-                transform: scale(1);
-            }
+        }
+
+        .toggle-wrapper {
+            animation: fadeIn 0.4s ease;
         }
     </style>
 </head>
+
 <body class="dark">
-    <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-wrapper" id="toggleWrapper">
         <div class="scenes-container">
             <!-- ═══════════════════════════════════════════════════════
-                 🌙 ESCENA NOCTURNA (DARK MODE)
-                 ════════════════════════════════════════════════════════ -->
+                 ESCENA DARK (del index.html original - IDÉNTICA)
+                 ══════════════════════════════════════════════════════ -->
             <div class="scene scene--dark">
-                <!-- Marco de ventana -->
-                <div class="window-frame"></div>
-
-                <!-- Estrellas -->
-                <div class="stars">
-                    <div class="star"></div>
-                    <div class="star"></div>
-                    <div class="star"></div>
-                    <div class="star"></div>
-                    <div class="star"></div>
+                <div class="container">
+                    <div class="window">
+                        <div class="mountain-1"></div>
+                        <div class="mountain-2"></div>
+                        <div class="kitty">
+                            <div class="ear"></div>
+                        </div>
+                        <div class="moon"></div>
+                        <div class="star"></div>
+                    </div>
                 </div>
-
-                <!-- Luna -->
-                <div class="moon"></div>
-
-                <!-- Montañas -->
-                <div class="mountains">
-                    <div class="mountain"></div>
-                    <div class="mountain"></div>
-                    <div class="mountain"></div>
-                    <div class="mountain"></div>
-                </div>
-
-                <!-- Gato Negro -->
-                <div class="kitty">
-                    <div class="ear"></div>
-                </div>
-
-                <!-- Label -->
-                <div class="mode-label">Dark Mode</div>
             </div>
 
             <!-- ═══════════════════════════════════════════════════════
-                 ☀️ ESCENA DIURNA (LIGHT MODE)
-                 ════════════════════════════════════════════════════════ -->
+                 ESCENA LIGHT (misma estructura, diferentes elementos)
+                 ══════════════════════════════════════════════════════ -->
             <div class="scene scene--light">
-                <!-- Marco de ventana -->
-                <div class="window-frame"></div>
-
-                <!-- Sol -->
-                <div class="sun"></div>
-
-                <!-- Suelo/Césped -->
-                <div class="ground"></div>
-
-                <!-- Gato Naranja -->
-                <div class="kitty">
-                    <div class="ear"></div>
+                <div class="container">
+                    <div class="window">
+                        <div class="ground"></div>
+                        <div class="kitty">
+                            <div class="ear"></div>
+                        </div>
+                        <div class="sun"></div>
+                    </div>
                 </div>
-
-                <!-- Label -->
-                <div class="mode-label">Light Mode</div>
             </div>
         </div>
     </div>
 
     <script>
-        // ════════════════════════════════════════════════════════════
-        //  🎮 LÓGICA DE TOGGLE
-        // ════════════════════════════════════════════════════════════
-        
         // Detectar tema desde parámetro URL
         const urlParams = new URLSearchParams(window.location.search);
         const newTheme = urlParams.get('theme') || 'light';
-        
+
         // Aplicar tema inicial
         document.body.className = newTheme;
-        
+
         // Handler de click para toggle manual (opcional)
-        const toggle = document.getElementById('themeToggle');
-        
-        toggle.addEventListener('click', function() {
-            // Efecto visual de clic
-            this.classList.add('clicking');
-            setTimeout(() => this.classList.remove('clicking'), 300);
-            
-            // Toggle tema
+        const toggle = document.getElementById('toggleWrapper');
+
+        toggle.addEventListener('click', function () {
             const currentTheme = document.body.classList.contains('light') ? 'light' : 'dark';
             const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
             document.body.className = nextTheme;
-            
-            // Aquí se llamaría al script de sistema (manejado por Python)
             console.log(`Switching to ${nextTheme} mode`);
         });
 
-        // Auto-cerrar después de 2 segundos (manejado por Python GTK)
+        // Auto-cerrar después de 2 segundos
         setTimeout(() => {
             if (window.close) window.close();
         }, 2000);
     </script>
 </body>
+
 </html>
