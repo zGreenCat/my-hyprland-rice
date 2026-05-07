@@ -97,6 +97,43 @@ if command -v matugen &> /dev/null && [ -n "$WALLPAPER" ]; then
 fi
 
 # ════════════════════════════════════════════════════════════════════════
+#  🎨 APLICAR TEMA A MATUGEN (Generador de colores) + PARCHE PARA ROFI
+# ════════════════════════════════════════════════════════════════════════
+if command -v matugen &> /dev/null && [ -n "$WALLPAPER" ]; then
+    if [ "$NEW_THEME" = "light" ]; then
+        matugen image "$WALLPAPER" -m light
+    else
+        matugen image "$WALLPAPER"
+    fi
+fi
+
+# Después de que matugen termine, dejamos SIEMPRE un colors.rasi válido
+ROFI_COLORS="$HOME/.config/rofi/colors.rasi"
+
+cat > "$ROFI_COLORS" << 'EOF'
+/* Rofi colors – generado por cat-theme-toggle */
+* {
+    primary:           #d6bbfb;
+    secondary:         #cec2da;
+    background:        #151218;
+    foreground:        #e7e0e8;
+    surface:           #151218;
+
+    primary-fixed:       #d6bbfb;
+    secondary-container: #cec2da;
+
+    on-primary:        #151218;
+    on-primary-fixed:  #151218;
+    on-secondary:      #151218;
+
+    on-surface:        #e7e0e8;
+
+    error:             #ff6b6b;
+}
+EOF
+
+
+# ════════════════════════════════════════════════════════════════════════
 #  🖥️ APLICAR TEMA A GTK
 #  TODO: Cambia los nombres de temas si usas otros
 # ════════════════════════════════════════════════════════════════════════

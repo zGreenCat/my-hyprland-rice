@@ -1,0 +1,7 @@
+/* ════════════════════════════════════════════════════════════════════════
+   User Custom Modules - Add your custom modules here
+   ════════════════════════════════════════════════════════════════════════ */
+
+{
+    /* Add your custom modules here following Waybar's module format */
+}
