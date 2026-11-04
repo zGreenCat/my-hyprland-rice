@@ -22,7 +22,6 @@
 "margin-right": 0,
 
 "modules-left": [
-	"custom/audio_al_pc",
 	//"idle_inhibitor",
 	//"custom/separator#blank",
 	"tray",

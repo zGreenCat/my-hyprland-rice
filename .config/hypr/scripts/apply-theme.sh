@@ -34,21 +34,7 @@ hex2rgb() {
     printf "%d %d %d" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
 }
 
-# ─── 1. Wallpaper ────────────────────────────────────────────────────────
-if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
-    if ! pgrep -x awww-daemon > /dev/null; then
-        awww-daemon &
-        sleep 0.5
-    fi
-    awww img "$WALLPAPER" \
-        --transition-type grow \
-        --transition-pos 0.5,0.5 \
-        --transition-fps 60 \
-        --transition-duration 1.2 \
-        --transition-bezier 0.25,0.1,0.25,1.0 &
-fi
-
-# ─── 2. Hyprland colors.conf ─────────────────────────────────────────────
+# ─── 1. Hyprland colors.conf ─────────────────────────────────────────────
 cat > "$HOME/.config/hypr/colors.conf" <<EOF
 \$col_active_border = $HYPR_BORDER_ACTIVE
 \$col_inactive_border = $HYPR_BORDER_INACTIVE
@@ -109,6 +95,62 @@ cat > "$HOME/.config/waybar/colors.css" <<EOF
 @define-color inverse_primary $C_SURFACE1;
 @define-color scrim #000000;
 @define-color shadow #000000;
+EOF
+
+# ─── 3b. Astal (ags) colors.scss ──────────────────────────────────────────
+cat > "$HOME/.config/ags/colors.scss" <<EOF
+// Theme: $THEME_NAME
+\$background: $C_BG;
+\$surface: $C_BG;
+\$surface_dim: $C_BG;
+\$surface_bright: $C_SURFACE0;
+\$surface_container: $C_SURFACE0;
+\$surface_container_high: $C_SURFACE1;
+\$surface_container_highest: $C_SURFACE2;
+\$surface_container_low: $C_MANTLE;
+\$surface_container_lowest: $C_CRUST;
+\$surface_tint: $C_ACCENT;
+\$surface_variant: $C_SURFACE0;
+\$on_surface: $C_FG;
+\$on_background: $C_FG;
+\$on_surface_variant: $C_FG2;
+\$primary: $C_ACCENT;
+\$primary_fixed: $C_ACCENT;
+\$primary_fixed_dim: $C_ACCENT;
+\$source_color: $C_ACCENT;
+\$primary_container: $C_SURFACE0;
+\$on_primary: $C_CRUST;
+\$on_primary_fixed: $C_CRUST;
+\$on_primary_fixed_variant: $C_CRUST;
+\$on_primary_container: $C_ACCENT;
+\$secondary: $C_BLUE;
+\$secondary_fixed: $C_BLUE;
+\$secondary_fixed_dim: $C_BLUE;
+\$secondary_container: $C_SURFACE0;
+\$on_secondary: $C_CRUST;
+\$on_secondary_fixed: $C_CRUST;
+\$on_secondary_fixed_variant: $C_CRUST;
+\$on_secondary_container: $C_BLUE;
+\$tertiary: $C_PINK;
+\$tertiary_fixed: $C_PINK;
+\$tertiary_fixed_dim: $C_PINK;
+\$tertiary_container: $C_SURFACE0;
+\$on_tertiary: $C_CRUST;
+\$on_tertiary_fixed: $C_CRUST;
+\$on_tertiary_fixed_variant: $C_CRUST;
+\$on_tertiary_container: $C_PINK;
+\$error: $C_RED;
+\$error_container: $C_SURFACE0;
+\$on_error: $C_CRUST;
+\$on_error_container: $C_RED;
+\$outline: $C_OVERLAY;
+\$outline_variant: $C_SURFACE0;
+\$inverse_surface: $C_FG;
+\$inverse_on_surface: $C_BG;
+\$inverse_primary: $C_SURFACE1;
+\$scrim: #000000;
+\$shadow: #000000;
+\$rounding: ${HYPR_ROUNDING:-12}px;
 EOF
 
 # ─── 4. Kitty colors.conf ────────────────────────────────────────────────
@@ -269,13 +311,32 @@ EOF
 
 # ─── 7. Hyprland live update ─────────────────────────────────────────────
 hyprctl reload 2>/dev/null
+HEADLESS_OUTPUT=$(hyprctl monitors -j 2>/dev/null | jq -r '.[] | select(.name | startswith("HEADLESS-")) | .name' | head -n 1)
+if [ -n "$HEADLESS_OUTPUT" ]; then
+    sleep 0.2
+    hyprctl keyword monitor "$HEADLESS_OUTPUT,1920x1080@60,auto,1" 2>/dev/null
+fi
 hyprctl keyword general:col.active_border "$HYPR_BORDER_ACTIVE" 2>/dev/null
 hyprctl keyword general:col.inactive_border "$HYPR_BORDER_INACTIVE" 2>/dev/null
 hyprctl keyword decoration:shadow:color "$HYPR_SHADOW" 2>/dev/null
 hyprctl keyword decoration:shadow:color_inactive "$HYPR_SHADOW_INACTIVE" 2>/dev/null
 hyprctl keyword decoration:rounding "${HYPR_ROUNDING:-12}" 2>/dev/null
 
-# ─── 8. Hyprlock ─────────────────────────────────────────────────────────
+# ─── 8. Wallpaper ────────────────────────────────────────────────────────
+if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
+    if ! pgrep -x awww-daemon > /dev/null; then
+        awww-daemon &
+        sleep 0.5
+    fi
+    awww img "$WALLPAPER" \
+        --transition-type grow \
+        --transition-pos 0.5,0.5 \
+        --transition-fps 60 \
+        --transition-duration 1.2 \
+        --transition-bezier 0.25,0.1,0.25,1.0 &
+fi
+
+# ─── 9. Hyprlock ─────────────────────────────────────────────────────────
 ROUNDING_PX="${HYPR_ROUNDING:-12}"
 ACCENT_HEX="${C_ACCENT#\#}"
 BG_HEX="${C_BG#\#}"
@@ -295,7 +356,7 @@ EOF
 [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ] && \
     ln -sf "$WALLPAPER" "$HOME/.config/hypr/current_wallpaper" 2>/dev/null
 
-# ─── 9. Recargar servicios ───────────────────────────────────────────────
+# ─── 10. Recargar servicios ──────────────────────────────────────────────
 ACTIVE_LAYOUT_FILE="$HOME/.config/hypr/.active-waybar-layout"
 CURRENT_LAYOUT=$(cat "$ACTIVE_LAYOUT_FILE" 2>/dev/null || echo "")
 
@@ -326,8 +387,35 @@ else
     pkill -SIGUSR2 waybar 2>/dev/null
 fi
 kill -SIGUSR1 $(pidof kitty) 2>/dev/null
+ags quit 2>/dev/null; (ags run &>/dev/null &) 2>/dev/null; disown 2>/dev/null
 
-# ─── 10. Estado y notificación ───────────────────────────────────────────
+# ─── 10b. Spicetify (Spotify) ─────────────────────────────────────────────
+if command -v spicetify &>/dev/null; then
+    mkdir -p "$HOME/.config/spicetify/Themes/text"
+    cat > "$HOME/.config/spicetify/Themes/text/color.ini" <<EOF
+[Spicetify]
+main               = ${C_BG#\#}
+accent             = ${C_ACCENT#\#}
+accent-active      = ${C_ACCENT#\#}
+accent-inactive    = ${C_SURFACE0#\#}
+banner             = ${C_ACCENT#\#}
+border-active      = ${C_ACCENT#\#}
+border-inactive    = ${C_OVERLAY#\#}
+header             = ${C_FG#\#}
+highlight          = ${C_SURFACE0#\#}
+notification       = ${C_ACCENT#\#}
+notification-error = ${C_RED#\#}
+subtext            = ${C_FG2#\#}
+text               = ${C_FG#\#}
+EOF
+    if pgrep -x spotify &>/dev/null; then
+        touch "$HOME/.config/spicetify/.pending-apply"
+    else
+        (spicetify apply &>/dev/null &) 2>/dev/null; disown 2>/dev/null
+    fi
+fi
+
+# ─── 11. Estado y notificación ───────────────────────────────────────────
 echo "$1" > "$HOME/.config/hypr/.active-theme"
 notify-send "🎨 Tema aplicado" "$THEME_NAME" -t 2500
 

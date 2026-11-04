@@ -30,6 +30,11 @@ output_path = '~/.config/gtk-4.0/colors.css'
 input_path = '~/.config/matugen/templates/rofi-colors.rasi'
 output_path = '~/.config/rofi/colors.rasi'
 
+[templates.astal]
+input_path = '~/.config/matugen/templates/astal-colors.scss'
+output_path = '~/.config/ags/colors.scss'
+post_hook = 'ags quit; ags run &>/dev/null & disown'
+
 [templates.cava]
 input_path = '~/.config/matugen/templates/matugen-cava'
 output_path = '~/.config/cava/config'
