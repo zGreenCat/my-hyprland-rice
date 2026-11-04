@@ -34,13 +34,18 @@ hex2rgb() {
     printf "%d %d %d" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
 }
 
-# ─── 1. Hyprland colors.conf ─────────────────────────────────────────────
+# ─── 1. Hyprland colors.conf (legacy) + colors.lua ───────────────────────
+if ! COLORS_LUA=$("$SCRIPTS/hypr-do.sh" colors-lua "$HYPR_BORDER_ACTIVE" "$HYPR_BORDER_INACTIVE" "$HYPR_SHADOW" "$HYPR_SHADOW_INACTIVE" 2>&1); then
+    notify-send "⚠️ apply-theme" "Tema '$1': colores de Hyprland inválidos. $COLORS_LUA" -t 5000
+    exit 1
+fi
 cat > "$HOME/.config/hypr/colors.conf" <<EOF
 \$col_active_border = $HYPR_BORDER_ACTIVE
 \$col_inactive_border = $HYPR_BORDER_INACTIVE
 \$shadow_color = $HYPR_SHADOW
 \$shadow_inactive = $HYPR_SHADOW_INACTIVE
 EOF
+printf '%s\n' "$COLORS_LUA" > "$HOME/.config/hypr/colors.lua"
 
 # ─── 3. Waybar colors.css ────────────────────────────────────────────────
 cat > "$HOME/.config/waybar/colors.css" <<EOF
@@ -314,13 +319,13 @@ hyprctl reload 2>/dev/null
 HEADLESS_OUTPUT=$(hyprctl monitors -j 2>/dev/null | jq -r '.[] | select(.name | startswith("HEADLESS-")) | .name' | head -n 1)
 if [ -n "$HEADLESS_OUTPUT" ]; then
     sleep 0.2
-    hyprctl keyword monitor "$HEADLESS_OUTPUT,1920x1080@60,auto,1" 2>/dev/null
+    if ! err=$("$SCRIPTS/hypr-do.sh" monitor "$HEADLESS_OUTPUT" 1920x1080@60 auto 1 2>&1); then
+        notify-send "⚠️ apply-theme" "$err" -t 5000
+    fi
 fi
-hyprctl keyword general:col.active_border "$HYPR_BORDER_ACTIVE" 2>/dev/null
-hyprctl keyword general:col.inactive_border "$HYPR_BORDER_INACTIVE" 2>/dev/null
-hyprctl keyword decoration:shadow:color "$HYPR_SHADOW" 2>/dev/null
-hyprctl keyword decoration:shadow:color_inactive "$HYPR_SHADOW_INACTIVE" 2>/dev/null
-hyprctl keyword decoration:rounding "${HYPR_ROUNDING:-12}" 2>/dev/null
+if ! err=$("$SCRIPTS/hypr-do.sh" set-colors "$HYPR_BORDER_ACTIVE" "$HYPR_BORDER_INACTIVE" "$HYPR_SHADOW" "$HYPR_SHADOW_INACTIVE" "${HYPR_ROUNDING:-12}" 2>&1); then
+    notify-send "⚠️ apply-theme" "$err" -t 5000
+fi
 
 # ─── 8. Wallpaper ────────────────────────────────────────────────────────
 if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then

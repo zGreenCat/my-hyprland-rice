@@ -107,6 +107,7 @@ for c in calls:
     if c[0] != 'bind': continue
     keys = json.loads(c[1]); action = json.loads(c[2])
     flags = json.loads(c[3]) if len(c) > 3 and c[3] != 'null' else {}
+    flags.pop('description', None)
     args = action.get('args', [])
     a1 = args[0] if len(args) > 0 else None
     a2 = args[1] if len(args) > 1 else None
@@ -125,3 +126,22 @@ def bykey(lst):
     return d
 dc, dl = bykey(conf_binds), bykey(lua_binds)
 print('orden por tecla idéntico:', dc == dl, '| teclas con >1 bind:', sum(1 for v in dc.values() if len(v) > 1))
+
+# ---------- vista de atajos en modo Lua (simula hyprctl binds -j) ----------
+import importlib.util, subprocess
+MOD_BITS = {'SHIFT': 1, 'CTRL': 4, 'ALT': 8, 'SUPER': 64}
+fake = []
+for c in calls:
+    if c[0] != 'bind': continue
+    parts = json.loads(c[1]).split(' + ')
+    flags = json.loads(c[3]) if len(c) > 3 and c[3] != 'null' else {}
+    fake.append({'key': parts[-1], 'modmask': sum(MOD_BITS[m] for m in parts[:-1]),
+                 'description': flags.get('description', ''), 'has_description': 'description' in flags})
+spec = importlib.util.spec_from_file_location('kv', '/home/zgreencat/.config/hypr/scripts/keybindings-view.py')
+src = open(spec.origin).read().split("results = lua_results(")[0]
+ns = {}; exec(compile(src, spec.origin, 'exec'), ns)
+lua_view = ns['lua_results'](fake)
+legacy_view = ns['legacy_results']()
+print('vista atajos: legacy', len(legacy_view), '| lua simulada', len(lua_view), '| idénticas:', lua_view == legacy_view)
+for a, b in zip(legacy_view, lua_view):
+    if a != b: print('  VISTA ≠', a, '|', b)

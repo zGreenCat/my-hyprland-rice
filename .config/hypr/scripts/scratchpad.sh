@@ -7,4 +7,4 @@ exit(0 if any(c['class'] == 'scratchpad' for c in clients) else 1)
     kitty --class scratchpad &
     sleep 0.4
 fi
-hyprctl dispatch togglespecialworkspace scratchpad
+~/.config/hypr/scripts/hypr-do.sh toggle-special scratchpad

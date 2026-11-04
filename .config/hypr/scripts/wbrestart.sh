@@ -11,7 +11,7 @@ HEADLESS_OUTPUT=$(hyprctl monitors -j 2>/dev/null | jq -r '.[] | select(.name | 
 WALLPAPER="$HOME/.config/hypr/current_wallpaper"
 
 if [ -n "$HEADLESS_OUTPUT" ]; then
-    hyprctl keyword monitor "$HEADLESS_OUTPUT,1920x1080@60,auto,1"
+    ~/.config/hypr/scripts/hypr-do.sh monitor "$HEADLESS_OUTPUT" 1920x1080@60 auto 1
     if [ -f "$WALLPAPER" ] && pgrep -x awww-daemon > /dev/null; then
         awww img "$WALLPAPER" --outputs "$HEADLESS_OUTPUT" --transition-type none
     fi

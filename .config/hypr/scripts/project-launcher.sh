@@ -45,7 +45,7 @@ for c in clients:
         exit(0)
 exit(1)
 " 2>/dev/null; then
-    hyprctl dispatch focuswindow "class:^(code|Code)$"
+    ~/.config/hypr/scripts/hypr-do.sh focus-window "class:^(code|Code)$"
 else
     "$EDITOR" "$full_path" &
 fi

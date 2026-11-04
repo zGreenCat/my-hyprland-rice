@@ -66,7 +66,7 @@
               },
               {
                   "label": "󰍃",
-                  "command": "hyprctl dispatch exit"
+                  "command": "~/.config/hypr/scripts/hypr-do.sh exit"
               },
               {
                   "label": "󰀝",
