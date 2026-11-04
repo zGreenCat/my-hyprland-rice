@@ -69,6 +69,24 @@ echo "📁 Configs adicionales..."
 echo ""
 
 # ═══════════════════════════════════════════════════════════════════
+#  SERVICIOS DE USUARIO (systemd)
+# ═══════════════════════════════════════════════════════════════════
+
+echo "📁 Systemd user..."
+if [ -d "$REPO_DIR/.config/systemd/user" ]; then
+    mkdir -p "$CONFIG_DIR/systemd/user"
+    for unit in "$REPO_DIR/.config/systemd/user/"*; do
+        [ -f "$unit" ] && apply_config "$unit" "$CONFIG_DIR/systemd/user/" "$(basename "$unit")"
+    done
+    # Sin daemon-reload systemd sigue viendo las units viejas
+    systemctl --user daemon-reload && echo "✅ systemd user recargado"
+else
+    echo "⚠️  Sin servicios de usuario en el repo"
+fi
+
+echo ""
+
+# ═══════════════════════════════════════════════════════════════════
 #  HACER SCRIPTS EJECUTABLES
 # ═══════════════════════════════════════════════════════════════════
 

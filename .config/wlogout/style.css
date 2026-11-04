@@ -5,16 +5,16 @@
 }
 
 window {
-    background-color: rgba(16, 0, 43, 0.95);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 button {
-    border-radius: 20px;
+    border-radius: 0px;
     margin: 25px;
     padding: 60px 40px 30px 40px;
-    color: #e0aaff;
-    border: 3px solid #7b2cbf;
-    background-color: rgba(36, 0, 70, 0.8);
+    color: #e8d0d4;
+    border: 3px solid #e8002a;
+    background-color: rgba(26, 5, 8, 0.80);
     background-repeat: no-repeat;
     background-position: center 25%;
     background-size: 40%;
@@ -23,11 +23,11 @@ button {
 }
 
 button:hover {
-    background-color: rgba(123, 44, 191, 0.9);
-    border-color: #c77dff;
+    background-color: rgba(232, 0, 42, 0.90);
+    border-color: #8040a0;
     background-position: center 22%;
     background-size: 45%;
-    color: #ffffff;
+    color: #080204;
 }
 
 #lock {

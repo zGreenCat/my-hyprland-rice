@@ -220,3 +220,19 @@ tooltip label{
 	min-height: 10px;
 	border-radius: 5px;
 }
+
+/* ── Audio al PC ─────────────────────────────────────────────────────── */
+#custom-audio_al_pc {
+	background: @primary;
+	color: @on_primary;
+	padding: 0px 10px;
+	margin: 3px 2px;
+	border-radius: 8px;
+	font-weight: bold;
+}
+
+#custom-audio_al_pc.off {
+	padding: 0px;
+	margin: 0px;
+	background: transparent;
+}

@@ -22,12 +22,15 @@
 "margin-right": 0,
 
 "modules-left": [
+	"custom/audio_al_pc",
 	//"idle_inhibitor",
 	//"custom/separator#blank",
 	"tray",
-        "custom/separator#line",	
-        "custom/separator#blank",	
+        "custom/separator#line",
+        "custom/separator#blank",
         "hyprland/workspaces#alpha",
+        "custom/separator#blank",
+        "custom/cava_mviz",
 	],
 
 "modules-center": [

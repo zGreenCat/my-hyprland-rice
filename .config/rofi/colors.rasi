@@ -1,47 +1,19 @@
+/* Theme: Crimson Noir */
 * {
-    primary:                         rgba ( 128, 212, 220, 100 % );
-    primary-fixed:                   rgba ( 157, 240, 248, 100 % );
-    primary-fixed-dim:               rgba ( 128, 212, 220, 100 % );
-    on-primary:                      rgba ( 0, 54, 58, 100 % );
-    on-primary-fixed:                rgba ( 0, 32, 34, 100 % );
-    on-primary-fixed-variant:        rgba ( 0, 79, 84, 100 % );
-    primary-container:               rgba ( 0, 79, 84, 100 % );
-    on-primary-container:            rgba ( 157, 240, 248, 100 % );
-    secondary:                       rgba ( 177, 203, 206, 100 % );
-    secondary-fixed:                 rgba ( 204, 232, 234, 100 % );
-    secondary-fixed-dim:             rgba ( 177, 203, 206, 100 % );
-    on-secondary:                    rgba ( 27, 52, 55, 100 % );
-    on-secondary-fixed:              rgba ( 5, 31, 33, 100 % );
-    on-secondary-fixed-variant:      rgba ( 50, 75, 77, 100 % );
-    secondary-container:             rgba ( 50, 75, 77, 100 % );
-    on-secondary-container:          rgba ( 204, 232, 234, 100 % );
-    tertiary:                        rgba ( 183, 199, 234, 100 % );
-    tertiary-fixed:                  rgba ( 215, 226, 255, 100 % );
-    tertiary-fixed-dim:              rgba ( 183, 199, 234, 100 % );
-    on-tertiary:                     rgba ( 33, 48, 76, 100 % );
-    on-tertiary-fixed:               rgba ( 10, 27, 54, 100 % );
-    on-tertiary-fixed-variant:       rgba ( 56, 71, 100, 100 % );
-    tertiary-container:              rgba ( 56, 71, 100, 100 % );
-    on-tertiary-container:           rgba ( 215, 226, 255, 100 % );
-    error:                           rgba ( 255, 180, 171, 100 % );
-    on-error:                        rgba ( 105, 0, 5, 100 % );
-    error-container:                 rgba ( 147, 0, 10, 100 % );
-    on-error-container:              rgba ( 255, 218, 214, 100 % );
-    surface:                         rgba ( 14, 20, 21, 100 % );
-    on-surface:                      rgba ( 222, 228, 228, 100 % );
-    on-surface-variant:              rgba ( 190, 200, 201, 100 % );
-    outline:                         rgba ( 137, 147, 147, 100 % );
-    outline-variant:                 rgba ( 63, 72, 73, 100 % );
-    shadow:                          rgba ( 0, 0, 0, 100 % );
-    scrim:                           rgba ( 0, 0, 0, 100 % );
-    inverse-surface:                 rgba ( 222, 228, 228, 100 % );
-    inverse-on-surface:              rgba ( 43, 50, 50, 100 % );
-    inverse-primary:                 rgba ( 0, 105, 112, 100 % );
-    surface-dim:                     rgba ( 14, 20, 21, 100 % );
-    surface-bright:                  rgba ( 52, 58, 59, 100 % );
-    surface-container-lowest:        rgba ( 9, 15, 16, 100 % );
-    surface-container-low:           rgba ( 22, 29, 29, 100 % );
-    surface-container:               rgba ( 26, 33, 33, 100 % );
-    surface-container-high:          rgba ( 37, 43, 44, 100 % );
-    surface-container-highest:       rgba ( 48, 54, 54, 100 % );
+    primary:              #e8002a;
+    secondary:            #a04060;
+    background:           #030001;
+    foreground:           #e8d0d4;
+    surface:              #080204;
+
+    primary-container:    #1a0508;
+    on-primary-container: #e8d0d4;
+    on-primary:           #1a0508;
+    on-primary-fixed:     #030001;
+    on-surface:           #e8d0d4;
+    secondary-container:  #6b2030;
+    on-secondary:         #c0a0a8;
+    error:                #ff1040;
+
+    rofi-radius:          0px;
 }

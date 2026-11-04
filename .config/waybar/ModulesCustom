@@ -90,11 +90,11 @@
 
 "custom/light_dark": {
 	"format": "󰔎 ",
-	"on-click": "$HOME/.config/hypr/scripts/DarkLight.sh",
+	"on-click": "python3 $HOME/.config/hypr/scripts/cat-theme-widget.py",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
 	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
 	"tooltip": true,
-	"tooltip-format": "Left Click: Switch Dark-Light Themes\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Styles Menu",
+	"tooltip-format": "Left Click: Toggle Dark/Light Theme\nMiddle Click: Wallpaper Menu\nRight Click: Waybar Styles Menu",
 },
 
 "custom/lock": {

@@ -1,7 +1,8 @@
 #!/bin/bash
 # 🔄 Script para sincronizar configs del sistema a tu repo
 
-REPO_DIR="/home/zgreencat/rice_repos/arch-hyprland/my-hyprland-rice"
+# Ruta autodetectada desde la ubicacion del script (igual que apply-configs.sh)
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
 
 echo "🔄 Sincronizando configuraciones del sistema al repo..."
@@ -62,6 +63,13 @@ echo "📁 SwayNC..."
 # Wlogout
 echo "📁 Wlogout..."
 [ -d "$CONFIG_DIR/wlogout" ] && cp -r "$CONFIG_DIR/wlogout/"* "$REPO_DIR/.config/wlogout/" 2>/dev/null
+
+# Servicios de usuario (systemd)
+echo "📁 Systemd user..."
+mkdir -p "$REPO_DIR/.config/systemd/user"
+for unit in audio-al-pc.service; do
+    copy_config "$HOME/.config/systemd/user/$unit" "$REPO_DIR/.config/systemd/user/" "$unit"
+done
 
 # Zshrc
 echo "📁 Shell..."

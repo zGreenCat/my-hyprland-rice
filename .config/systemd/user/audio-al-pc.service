@@ -1,0 +1,17 @@
+[Unit]
+Description=Envio de audio a PC por RTP (L16 48k estereo)
+After=pipewire.service pipewire-pulse.service
+Requires=pipewire-pulse.service
+StartLimitBurst=5
+StartLimitIntervalSec=30
+
+[Service]
+Type=simple
+ExecStart=%h/.config/hypr/scripts/audio-al-pc-emisor.sh
+# ffmpeg sale con 255 al recibir SIGTERM: es una parada limpia, no un fallo
+SuccessExitStatus=255
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

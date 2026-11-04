@@ -3,5 +3,14 @@
    ════════════════════════════════════════════════════════════════════════ */
 
 {
-    /* Add your custom modules here following Waybar's module format */
+"custom/audio_al_pc": {
+	"exec": "$HOME/.config/hypr/scripts/audio-al-pc.sh status",
+	"return-type": "json",
+	"interval": 5,
+	"signal": 8,
+	"format": "{}",
+	"on-click": "$HOME/.config/hypr/scripts/audio-al-pc.sh stop",
+	"on-click-right": "$HOME/.config/hypr/scripts/audio-al-pc.sh menu",
+	"tooltip": true,
+},
 }
