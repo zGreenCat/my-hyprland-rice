@@ -30,6 +30,18 @@ AUTOSTART = {
     "cliphist-image": "wl-paste --type image --watch cliphist store",
 }
 BIND_FLAGS = ("modmask", "key", "locked", "mouse", "repeat", "release", "non_consuming")
+# En modo Lua hyprctl binds -j reporta mouse=False aun con { mouse = true } (igual en el ejemplo
+# oficial): se excluye de la comparación y se prueba a mano.
+BIND_FLAGS_COMPARED = tuple(f for f in BIND_FLAGS if f != "mouse")
+
+
+def option_value(data):
+    """getoption -j etiqueta el tipo distinto en cada modo (int/bool, custom/gradient/css): compara el valor."""
+    if "error" in data:
+        return data
+    values = [v for k, v in data.items() if k != "set"]
+    value = values[0] if len(values) == 1 else values
+    return int(value) if isinstance(value, bool) else value
 
 
 def sh(*cmd, check=False):
@@ -151,11 +163,16 @@ def verify():
     check("hypr-do.sh detecta modo lua", sh(HYPR_DO, "mode") == "lua")
 
     cur = collect(lua_calls())
-    diffs = {k: (v, cur["options"].get(k)) for k, v in ref["options"].items() if cur["options"].get(k) != v}
+    diffs = {k: (v, cur["options"].get(k)) for k, v in ref["options"].items()
+             if option_value(cur["options"].get(k, {"error": "falta"})) != option_value(v)}
     check(f"opciones idénticas ({len(ref['options'])})", not diffs,
           "; ".join(f"{k}: legacy={a} lua={b}" for k, (a, b) in diffs.items()))
-    check(f"binds idénticos en orden y flags ({len(ref['binds'])})", cur["binds"] == ref["binds"],
-          f"legacy={len(ref['binds'])} lua={len(cur['binds'])}")
+    strip = lambda binds: [{k: b[k] for k in BIND_FLAGS_COMPARED} for b in binds]
+    bind_diffs = [(a, b) for a, b in zip(strip(ref["binds"]), strip(cur["binds"])) if a != b]
+    check(f"binds idénticos en orden y flags ({len(ref['binds'])}, sin 'mouse')",
+          len(cur["binds"]) == len(ref["binds"]) and not bind_diffs,
+          f"legacy={len(ref['binds'])} lua={len(cur['binds'])} distintos={bind_diffs[:3]}")
+    print(f"[MANUAL] binds de mouse ({sum(1 for b in ref['binds'] if b['mouse'])}): probar SUPER+clic izq/der")
     check("monitores idénticos", [list(x) for x in cur["monitors"]] == ref["monitors"],
           f"{ref['monitors']} vs {cur['monitors']}")
     check("reglas de workspace idénticas", [list(x) for x in cur["workspacerules"]] == ref["workspacerules"],
@@ -177,7 +194,7 @@ def verify():
     out = sh("hyprctl", "reload")
     check("hyprctl reload", out == "ok", out)
     check("opciones idénticas tras reload (relee colors.lua)",
-          {k: getoption(k) for k in ref["options"]} == ref["options"])
+          all(option_value(getoption(k)) == option_value(v) for k, v in ref["options"].items()))
 
     print(f"\n{sum(results)}/{len(results)} comprobaciones pasan")
     sys.exit(0 if all(results) else 1)
