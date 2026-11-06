@@ -1,0 +1,1520 @@
+{
+ "options": {
+  "animations:enabled": {
+   "int": 1,
+   "set": true
+  },
+  "cursor:no_hardware_cursors": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:blur:brightness": {
+   "float": 1.0,
+   "set": true
+  },
+  "decoration:blur:contrast": {
+   "float": 1.1,
+   "set": true
+  },
+  "decoration:blur:enabled": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:blur:ignore_opacity": {
+   "int": 0,
+   "set": true
+  },
+  "decoration:blur:new_optimizations": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:blur:passes": {
+   "int": 3,
+   "set": true
+  },
+  "decoration:blur:size": {
+   "int": 8,
+   "set": true
+  },
+  "decoration:blur:vibrancy": {
+   "float": 0.2,
+   "set": true
+  },
+  "decoration:blur:vibrancy_darkness": {
+   "float": 0.3,
+   "set": true
+  },
+  "decoration:blur:xray": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:dim_around": {
+   "float": 0.15,
+   "set": true
+  },
+  "decoration:dim_inactive": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:dim_strength": {
+   "float": 0.05,
+   "set": true
+  },
+  "decoration:fullscreen_opacity": {
+   "float": 1.0,
+   "set": true
+  },
+  "decoration:rounding": {
+   "int": 12,
+   "set": true
+  },
+  "decoration:shadow:color": {
+   "custom": "44e8002a 0deg",
+   "set": true
+  },
+  "decoration:shadow:color_inactive": {
+   "custom": "99000000 0deg",
+   "set": true
+  },
+  "decoration:shadow:enabled": {
+   "int": 1,
+   "set": true
+  },
+  "decoration:shadow:offset": {
+   "vec2": [
+    0,
+    2
+   ],
+   "set": true
+  },
+  "decoration:shadow:range": {
+   "int": 20,
+   "set": true
+  },
+  "decoration:shadow:render_power": {
+   "int": 3,
+   "set": true
+  },
+  "dwindle:preserve_split": {
+   "int": 1,
+   "set": true
+  },
+  "general:allow_tearing": {
+   "int": 0,
+   "set": true
+  },
+  "general:border_size": {
+   "int": 3,
+   "set": true
+  },
+  "general:col.active_border": {
+   "custom": "ffe8002a ff8b0000 ff3f0010 45deg",
+   "set": true
+  },
+  "general:col.inactive_border": {
+   "custom": "ff080204 0deg",
+   "set": true
+  },
+  "general:gaps_in": {
+   "custom": "8 8 8 8",
+   "set": true
+  },
+  "general:gaps_out": {
+   "custom": "16 16 16 16",
+   "set": true
+  },
+  "general:layout": {
+   "str": "dwindle",
+   "set": true
+  },
+  "general:resize_on_border": {
+   "int": 1,
+   "set": true
+  },
+  "input:accel_profile": {
+   "str": "flat",
+   "set": true
+  },
+  "input:follow_mouse": {
+   "int": 1,
+   "set": true
+  },
+  "input:force_no_accel": {
+   "int": 1,
+   "set": true
+  },
+  "input:kb_layout": {
+   "str": "us,latam",
+   "set": true
+  },
+  "input:kb_model": {
+   "str": "",
+   "set": true
+  },
+  "input:kb_options": {
+   "str": "grp:alt_shift_toggle",
+   "set": true
+  },
+  "input:kb_rules": {
+   "str": "",
+   "set": true
+  },
+  "input:kb_variant": {
+   "str": "",
+   "set": true
+  },
+  "input:sensitivity": {
+   "float": 0.0,
+   "set": true
+  },
+  "input:touchpad:natural_scroll": {
+   "int": 1,
+   "set": true
+  },
+  "master:new_on_top": {
+   "int": 0,
+   "set": true
+  },
+  "master:new_status": {
+   "str": "master",
+   "set": true
+  },
+  "misc:disable_hyprland_logo": {
+   "int": 1,
+   "set": true
+  },
+  "misc:force_default_wallpaper": {
+   "int": 0,
+   "set": true
+  },
+  "misc:key_press_enables_dpms": {
+   "int": 1,
+   "set": true
+  },
+  "misc:mouse_move_enables_dpms": {
+   "int": 1,
+   "set": true
+  },
+  "misc:vrr": {
+   "int": 0,
+   "set": true
+  },
+  "render:new_render_scheduling": {
+   "int": 1,
+   "set": true
+  }
+ },
+ "binds": [
+  {
+   "modmask": 64,
+   "key": "Return",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "RETURN",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "Q",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 12,
+   "key": "Delete",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "E",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "Space",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "C",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "TAB",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "P",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "J",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "R",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "B",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "L",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "X",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "F",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "T",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "Q",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "C",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "B",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 72,
+   "key": "B",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "H",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "E",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "M",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "M",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 8,
+   "key": "Z",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "V",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "B",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "T",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "Print",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "Print",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "S",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "Print",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "up",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "down",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "up",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "down",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "up",
+   "locked": false,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "down",
+   "locked": false,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "6",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "7",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "8",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "9",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "0",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "6",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "7",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "8",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "9",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "0",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "grave",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "V",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "S",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "P",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "N",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "P",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "O",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "mouse_down",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "mouse_up",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "mouse:272",
+   "locked": false,
+   "mouse": true,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 64,
+   "key": "mouse:273",
+   "locked": false,
+   "mouse": true,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioRaiseVolume",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioLowerVolume",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioMute",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioMicMute",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86MonBrightnessUp",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86MonBrightnessDown",
+   "locked": true,
+   "mouse": false,
+   "repeat": true,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioNext",
+   "locked": true,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioPause",
+   "locked": true,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioPlay",
+   "locked": true,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 0,
+   "key": "XF86AudioPrev",
+   "locked": true,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "H",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "L",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 69,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 69,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 72,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 72,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 73,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 73,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 73,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 73,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 73,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "H",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "L",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 69,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 69,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 72,
+   "key": "left",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 72,
+   "key": "right",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "6",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "6",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "7",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "7",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "8",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "8",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "9",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "9",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "1",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "2",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "3",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "4",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 68,
+   "key": "5",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  },
+  {
+   "modmask": 65,
+   "key": "M",
+   "locked": false,
+   "mouse": false,
+   "repeat": false,
+   "release": false,
+   "non_consuming": false
+  }
+ ],
+ "monitors": [
+  [
+   "eDP-1",
+   1920,
+   1080,
+   144.0,
+   0,
+   0,
+   1
+  ]
+ ],
+ "workspacerules": [
+  [
+   "1",
+   "eDP-1"
+  ],
+  [
+   "10",
+   "HDMI-A-1"
+  ],
+  [
+   "2",
+   "eDP-1"
+  ],
+  [
+   "3",
+   "eDP-1"
+  ],
+  [
+   "4",
+   "eDP-1"
+  ],
+  [
+   "5",
+   "eDP-1"
+  ],
+  [
+   "6",
+   "HDMI-A-1"
+  ],
+  [
+   "7",
+   "HDMI-A-1"
+  ],
+  [
+   "8",
+   "HDMI-A-1"
+  ],
+  [
+   "9",
+   "HDMI-A-1"
+  ]
+ ],
+ "autostart": {
+  "nm-applet": true,
+  "waybar": true,
+  "awww-daemon": true,
+  "blueman-applet": true,
+  "ags": true,
+  "batsignal": true,
+  "xsettingsd": true,
+  "cliphist-text": true,
+  "cliphist-image": true
+ },
+ "env_waybar": {
+  "AQ_FORCE_LINEAR_BLIT": "0",
+  "AQ_NO_HARDWARE_CURSORS": "1",
+  "HYPRCURSOR_SIZE": "24",
+  "LIBVA_DRIVER_NAME": "iHD",
+  "MOZ_ENABLE_WAYLAND": "1",
+  "WLR_NO_HARDWARE_CURSORS": "1",
+  "XCURSOR_SIZE": "24",
+  "XCURSOR_THEME": "Bibata-Modern-Classic",
+  "XDG_CURRENT_DESKTOP": "Hyprland",
+  "XDG_SESSION_DESKTOP": "Hyprland",
+  "XDG_SESSION_TYPE": "wayland",
+  "__GLX_VENDOR_LIBRARY_NAME": "nvidia"
+ },
+ "keybindings_view": [
+  "SUPER + RETURN           →  Terminal",
+  "SUPER + SHIFT + RETURN   →  Terminal",
+  "SUPER + Q                →  Cerrar ventana",
+  "CTRL + ALT + DELETE      →  exit Hyprland",
+  "SUPER + E                →  File manager",
+  "SUPER + SPACE            →  Toggle flotante",
+  "SUPER + C                →  Buscador de apps",
+  "SUPER + TAB              →  Menú con submenus (piloto AGS/Astal)",
+  "SUPER + P                →  Pseudo tile",
+  "SUPER + J                →  layoutmsg",
+  "SUPER + R                →  Reiniciar Waybar",
+  "SUPER + B                →  default browser",
+  "SUPER + L                →  Lock screen",
+  "SUPER + X                →  Power menu",
+  "SUPER + F                →  Fullscreen sin Shift",
+  "SUPER + T                →  Selector de wallpapers/temas (piloto AGS/Astal)",
+  "SUPER + SHIFT + Q        →  Kill active process",
+  "SUPER + SHIFT + C        →  Color picker movido a Shift+C",
+  "SUPER + CTRL + B         →  Waybar Styles Menu",
+  "SUPER + ALT + B          →  Waybar Layout Menu",
+  "SUPER + H                →  Hide Waybar",
+  "SUPER + SHIFT + E        →  Yazi File Manager",
+  "SUPER + SHIFT + M        →  YouTube Music TUI",
+  "SUPER + M                →  Spotify TUI (estilo de la foto)",
+  "ALT + Z                  →  YouTube Music TUI",
+  "SUPER + SHIFT + V        →  Audio visualizer",
+  "SUPER + SHIFT + B        →  System monitor",
+  "SUPER + SHIFT + T        →  Big clock",
+  "PRINT                    →  Screenshot",
+  "SUPER + PRINT            →  Screenshot",
+  "SUPER + SHIFT + S        →  Screenshot + editar",
+  "SUPER + CTRL + PRINT     →  Screenshot + editar",
+  "SUPER + LEFT             →  Mover foco ←",
+  "SUPER + RIGHT            →  Mover foco →",
+  "SUPER + UP               →  Mover foco ↑",
+  "SUPER + DOWN             →  Mover foco ↓",
+  "SUPER + CTRL + LEFT      →  Mover ventana ←",
+  "SUPER + CTRL + RIGHT     →  Mover ventana →",
+  "SUPER + CTRL + UP        →  Mover ventana ↑",
+  "SUPER + CTRL + DOWN      →  Mover ventana ↓",
+  "SUPER + SHIFT + LEFT     →  Redimensionar ventana",
+  "SUPER + SHIFT + RIGHT    →  Redimensionar ventana",
+  "SUPER + SHIFT + UP       →  Redimensionar ventana",
+  "SUPER + SHIFT + DOWN     →  Redimensionar ventana",
+  "SUPER + GRAVE            →  scratchpad",
+  "SUPER + V                →  ags toggle clipboard",
+  "SUPER + S                →  ags toggle notification-center",
+  "SUPER + N                →  quick-note",
+  "SUPER + SHIFT + P        →  pentest-cheatsheet",
+  "SUPER + O                →  ags toggle obsidian",
+  "SUPER + SHIFT + H        →  Monitor izquierdo",
+  "SUPER + SHIFT + L        →  Monitor derecho"
+ ]
+}
