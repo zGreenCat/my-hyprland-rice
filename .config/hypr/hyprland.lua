@@ -52,7 +52,7 @@ hl.env("AQ_NO_HARDWARE_CURSORS", "1")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 
 -- ────────────────────────────────────────────────────────────────────────
---  Módulos (mismo orden que los source de hyprland.conf)
+--  Módulos
 -- ────────────────────────────────────────────────────────────────────────
 require("configs.tags")
 require("configs.looknfeel")

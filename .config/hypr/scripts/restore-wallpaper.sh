@@ -1,7 +1,7 @@
 #!/bin/bash
 # ════════════════════════════════════════════════════════════════════════
 #  🔄 restore-wallpaper.sh — Restaura el wallpaper activo en el arranque
-#  Los colores del tema ya persisten en disco (colors.conf, etc.); aquí solo
+#  Los colores del tema ya persisten en disco (colors.lua, etc.); aquí solo
 #  se recupera la imagen. Orden de prioridad:
 #    1. ~/.config/hypr/current_wallpaper (symlink al último wallpaper usado)
 #    2. WALLPAPER del tema en .active-theme

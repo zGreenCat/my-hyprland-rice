@@ -24,9 +24,7 @@ copy_config() {
 
 # Hyprland
 echo "📁 Hyprland..."
-copy_config "$CONFIG_DIR/hypr/hyprland.conf" "$REPO_DIR/.config/hypr/" "hyprland.conf"
 copy_config "$CONFIG_DIR/hypr/hyprland.lua" "$REPO_DIR/.config/hypr/" "hyprland.lua"
-copy_config "$CONFIG_DIR/hypr/colors.conf" "$REPO_DIR/.config/hypr/" "colors.conf"
 copy_config "$CONFIG_DIR/hypr/colors.lua" "$REPO_DIR/.config/hypr/" "colors.lua"
 copy_config "$CONFIG_DIR/hypr/hypridle.conf" "$REPO_DIR/.config/hypr/" "hypridle.conf"
 copy_config "$CONFIG_DIR/hypr/hyprlock.conf" "$REPO_DIR/.config/hypr/" "hyprlock.conf"
@@ -53,10 +51,6 @@ echo "📁 Kitty..."
 # Rofi
 echo "📁 Rofi..."
 [ -d "$CONFIG_DIR/rofi" ] && cp -r "$CONFIG_DIR/rofi/"* "$REPO_DIR/.config/rofi/" 2>/dev/null
-
-# Matugen
-echo "📁 Matugen..."
-[ -d "$CONFIG_DIR/matugen" ] && cp -r "$CONFIG_DIR/matugen/"* "$REPO_DIR/.config/matugen/" 2>/dev/null
 
 # SwayNC
 echo "📁 SwayNC..."

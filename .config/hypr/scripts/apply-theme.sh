@@ -34,17 +34,11 @@ hex2rgb() {
     printf "%d %d %d" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
 }
 
-# ─── 1. Hyprland colors.conf (legacy) + colors.lua ───────────────────────
+# ─── 1. Hyprland colors.lua ──────────────────────────────────────────────
 if ! COLORS_LUA=$("$SCRIPTS/hypr-do.sh" colors-lua "$HYPR_BORDER_ACTIVE" "$HYPR_BORDER_INACTIVE" "$HYPR_SHADOW" "$HYPR_SHADOW_INACTIVE" 2>&1); then
     notify-send "⚠️ apply-theme" "Tema '$1': colores de Hyprland inválidos. $COLORS_LUA" -t 5000
     exit 1
 fi
-cat > "$HOME/.config/hypr/colors.conf" <<EOF
-\$col_active_border = $HYPR_BORDER_ACTIVE
-\$col_inactive_border = $HYPR_BORDER_INACTIVE
-\$shadow_color = $HYPR_SHADOW
-\$shadow_inactive = $HYPR_SHADOW_INACTIVE
-EOF
 printf '%s\n' "$COLORS_LUA" > "$HOME/.config/hypr/colors.lua"
 
 # ─── 3. Waybar colors.css ────────────────────────────────────────────────

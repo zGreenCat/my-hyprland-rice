@@ -51,7 +51,6 @@ apply_config "$REPO_DIR/.config/rofi" "$CONFIG_DIR/" "rofi"
 
 # Matugen
 echo "📁 Matugen..."
-apply_config "$REPO_DIR/.config/matugen" "$CONFIG_DIR/" "matugen"
 
 # SwayNC
 echo "📁 SwayNC..."

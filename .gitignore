@@ -11,3 +11,4 @@
 # Backups
 *.bak
 *.backup
+__pycache__/
