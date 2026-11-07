@@ -70,19 +70,7 @@ layer("notification-popup", { animation = "slide" })
 layer("audiomixer", { blur = true, ignore_alpha = 0.15, animation = "slide" })
 
 layer("waybar", { blur = true, ignore_alpha = 0.5 })
--- AUDITORÍA: regex literal "tag:notif*", probablemente no coincide con ningún namespace
-layer("tag:notif*", { ignore_alpha = 0.5 })
 layer("logout_dialog", { blur = true })
-
--- SWAYNC BLUR & XRAY (el original intercalaba ambos namespaces; se mantiene el orden)
-layer("swaync-control-center", { blur = true })
-layer("swaync-notification-window", { blur = true })
-layer("swaync-control-center", { ignore_alpha = 0 })
-layer("swaync-notification-window", { ignore_alpha = 0 })
-layer("swaync-control-center", { ignore_alpha = 0.5 })
-layer("swaync-notification-window", { ignore_alpha = 0.5 })
-layer("swaync-control-center", { xray = false })
-layer("swaync-notification-window", { xray = false })
 
 -- FLOAT POR TAG / APPS
 rule({ tag = "settings*" }, { float = true })

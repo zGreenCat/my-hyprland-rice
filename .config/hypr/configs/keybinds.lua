@@ -1,8 +1,6 @@
 -- ###################
 -- ### KEYBINDINGS ###
 -- ###################
--- Traducción 1:1 de keybinds.conf. Los binds duplicados del original se conservan
--- (marcados con AUDITORÍA) para no cambiar comportamiento; se resuelven después.
 
 local mainMod = "SUPER"
 local terminal = "kitty"
@@ -10,8 +8,7 @@ local fileManager = "nautilus"
 local menu = "rofi -show drun"
 local scripts = "~/.config/hypr/scripts/"
 
--- Descripciones que muestra keybindings-view.py (idénticas a la vista generada desde keybinds.conf).
--- Se asignan solo al primer bind de cada combinación, como la vista deduplica hoy.
+-- Descripciones que muestra keybindings-view.py (se asignan al primer bind de cada combinación).
 local descriptions = {
   ["SUPER + RETURN"]          = "Terminal",
   ["SUPER + SHIFT + RETURN"]  = "Terminal",
@@ -21,8 +18,9 @@ local descriptions = {
   ["SUPER + SPACE"]           = "Toggle flotante",
   ["SUPER + C"]               = "Buscador de apps",
   ["SUPER + TAB"]             = "Menú con submenus (piloto AGS/Astal)",
-  ["SUPER + P"]               = "Pseudo tile",
-  ["SUPER + J"]               = "layoutmsg",
+  ["SUPER + P"]               = "Project launcher",
+  ["SUPER + ALT + P"]         = "Pseudo tile",
+  ["SUPER + J"]               = "Alternar división",
   ["SUPER + R"]               = "Reiniciar Waybar",
   ["SUPER + B"]               = "default browser",
   ["SUPER + L"]               = "Lock screen",
@@ -30,14 +28,15 @@ local descriptions = {
   ["SUPER + F"]               = "Fullscreen sin Shift",
   ["SUPER + T"]               = "Selector de wallpapers/temas (piloto AGS/Astal)",
   ["SUPER + SHIFT + Q"]       = "Kill active process",
-  ["SUPER + SHIFT + C"]       = "Color picker movido a Shift+C",
+  ["SUPER + SHIFT + C"]       = "Selector de color",
   ["SUPER + CTRL + B"]        = "Waybar Styles Menu",
   ["SUPER + ALT + B"]         = "Waybar Layout Menu",
   ["SUPER + H"]               = "Hide Waybar",
   ["SUPER + SHIFT + E"]       = "Yazi File Manager",
-  ["SUPER + SHIFT + M"]       = "YouTube Music TUI",
+  ["SUPER + SHIFT + M"]       = "Meeting mode",
+  ["SUPER + ALT + M"]         = "YouTube Music TUI",
   ["SUPER + M"]               = "Spotify TUI (estilo de la foto)",
-  ["ALT + Z"]                 = "YouTube Music TUI",
+  ["ALT + Z"]                 = "Asistente de voz (grabar/parar)",
   ["SUPER + SHIFT + V"]       = "Audio visualizer",
   ["SUPER + SHIFT + B"]       = "System monitor",
   ["SUPER + SHIFT + T"]       = "Big clock",
@@ -97,7 +96,7 @@ exec(M .. "E", fileManager)
 bind(M .. "Space", hl.dsp.window.float({ action = "toggle" }))
 exec(M .. "C", menu)
 exec(M .. "TAB", "ags toggle omenu")
-bind(M .. "P", hl.dsp.window.pseudo()) -- AUDITORÍA: SUPER+P también abre project-launcher (más abajo)
+bind(M .. "ALT + P", hl.dsp.window.pseudo())
 bind(M .. "J", hl.dsp.layout("togglesplit"))
 exec(M .. "R", scripts .. "wbrestart.sh")
 exec(M .. "B", 'xdg-open "https://"')
@@ -111,7 +110,7 @@ exec(M .. "CTRL + B", scripts .. "WaybarStyles.sh")
 exec(M .. "ALT + B", scripts .. "WaybarLayout.sh")
 exec(M .. "H", "pkill -SIGUSR1 waybar")
 exec(M .. "SHIFT + E", "kitty yazi")
-exec(M .. "SHIFT + M", "kitty yt") -- AUDITORÍA: SUPER+SHIFT+M también activa meeting-mode (al final)
+exec(M .. "ALT + M", "kitty yt")
 exec(M .. "M", "kitty spt")
 
 -- Asistente de voz (Alt+Z x2: inicia/para grabación → Claude Code → TTS)
@@ -147,7 +146,7 @@ for ws = 1, 10 do
   bind(M .. (ws % 10), hl.dsp.focus({ workspace = ws }))
 end
 for ws = 1, 10 do
-  bind(M .. "SHIFT + " .. (ws % 10), hl.dsp.window.move({ workspace = ws, follow = true }))
+  bind(M .. "SHIFT + " .. (ws % 10), hl.dsp.window.move({ workspace = ws, follow = false }))
 end
 
 -- Scratchpad terminal (Super + grave)
@@ -210,29 +209,11 @@ end
 
 multiMonitor()
 
--- Mover ventana Y cambiar al workspace en el otro monitor
-for ws = 1, 5 do
-  bind(M .. "ALT + SHIFT + " .. ws, hl.dsp.window.move({ workspace = ws, follow = true }))
-end
-
--- AUDITORÍA: bloque multi-monitor repetido en el original (cada bind queda registrado 2 veces)
-multiMonitor()
-
 -- ════════════════════════════════════════════════════════════════════════
 --  📦 WORKSPACE - Mover ventana y seguirla (Super + Ctrl + N)
 -- ════════════════════════════════════════════════════════════════════════
--- AUDITORÍA: el original registra movetoworkspace + workspace por tecla, y repite 1-5
--- en un segundo bloque (SUPER+CTRL+1..5 quedan con 4 binds). Se conserva tal cual.
-local function moveAndFollow(ws)
-  bind(M .. "CTRL + " .. ws, hl.dsp.window.move({ workspace = ws, follow = true }))
-  bind(M .. "CTRL + " .. ws, hl.dsp.focus({ workspace = ws }))
-end
-
 for ws = 1, 9 do
-  moveAndFollow(ws)
-end
-for ws = 1, 5 do
-  moveAndFollow(ws)
+  bind(M .. "CTRL + " .. ws, hl.dsp.window.move({ workspace = ws, follow = true }))
 end
 
 -- Meeting mode: toggle workspace 8 en monitor headless para compartir pantalla
