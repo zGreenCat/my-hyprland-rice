@@ -1,5 +1,7 @@
 # 🌌 Space Hyprland Rice
 
+> **Estado actual (2026-11):** Hyprland 0.57 con config en Lua; matugen, swww y swaync ya no se usan. El estado vigente del sistema, los snapshots y el procedimiento de actualización están en [`docs/sistema-mango.md`](docs/sistema-mango.md). Algunas secciones de abajo describen versiones anteriores.
+
 > *Un rice personalizado de Hyprland con temática espacial/lofi y generación dinámica de colores*
 
 Rice minimalista y elegante inspirado en el cosmos, con animaciones suaves y colores que se adaptan automáticamente a tus wallpapers. Diseñado para productividad sin sacrificar estética.
