@@ -154,6 +154,7 @@ Pasamos de 131 binds a 101, sin ningún duplicado. Las descripciones del visor (
 - **Los `.conf` legados:** `hyprland.conf`, `configs/*.conf`, `colors.conf` y `colors-base.conf`.
 - **Restos de otras herramientas:** `hyprpaper.conf` (el wallpaper es `awww`), matugen (su template estaba roto, usaba swww y nada lo invocaba) y 5 scripts viejos con sintaxis legacy.
 - **Respaldo:** `~/Backups/auditoria/f-hypr-matugen-20261107-021450.tar.gz`.
+- **2026-11-08:** se borraron también `omenu.sh` (SUPER+TAB usa `ags toggle omenu`), `theme-selector-preview.py` (solo lo usaba `omenu.sh`) y `theme-card.html`. Respaldo: `~/Backups/auditoria/scripts-sin-uso-*.tar.gz`.
 
 ## 7. Seguridad y servicios
 
@@ -238,7 +239,6 @@ Hyprland --verify-config -c ~/.config/hypr/hyprland.lua
 
 - Borrar el snapshot 6 cuando Hyprland 0.57 lleve unos días estable.
 - Volver de `waybar-git` a `waybar` (`sudo pacman -S waybar`) cuando la 0.16 esté en los repos oficiales; mientras tanto, `rebuild-detector` avisa si hay que recompilarlo.
-- Decidir si se borran 3 scripts sin uso: `omenu.sh`, `theme-selector-preview.py` y `theme-card.html`.
 - Los documentos viejos del repositorio (`README.md`, `QUICKSTART.md`, `AUDITORIA.md`, `DEPENDENCIES.md`, etc.) todavía describen matugen, swww y swaync.
 - SmartPack (lo resuelve el usuario):
   - con `BUILD_DB=TRUE`, `project.seeder.ts`, que no tolera correr dos veces, hace que el contenedor se reinicie en bucle;
