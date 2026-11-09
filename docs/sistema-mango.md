@@ -178,6 +178,20 @@ Pasamos de 131 binds a 101, sin ningún duplicado. Las descripciones del visor (
 - `daemon.json` (`"ip": "127.0.0.1"`) solo afecta a la red `bridge` por defecto, no a las redes de compose.
 - Fuera de tu red 192.168.1.x, SSH queda bloqueado a propósito.
 
+### Acceso remoto (2026-11-09)
+Para usar mango desde el trabajo (con SSH y herdr) sin abrir puertos en el router, que además está detrás de CGNAT:
+
+- **Tailscale:** mango es `100.67.96.113` (MagicDNS `mango`). El firewall acepta SSH por `tailscale0` y UDP 41641, que es la conexión directa. Respaldo del firewall: `/etc/nftables.conf.pre-remoto`. Script: `~/Backups/auditoria/remoto/remoto-setup.sh`.
+- **Sin suspender cuando está enchufado:**
+  - `hypridle` suspende a los 30 minutos solo con batería (`scripts/suspend-if-battery.sh`);
+  - logind ignora la tapa con cargador (`/etc/systemd/logind.conf.d/10-tapa-enchufado.conf`). Con batería, suspende como siempre.
+- **Cliente:** el notebook Windows `LAPTOP-CFPB93M8` tiene Tailscale, ssh-agent, `~/.ssh/config` (`Host mango` → `100.67.96.113`) y herdr (`herdr machine add mango --label mango`).
+  - `authorized_keys` tiene solo su clave nueva (`SHA256:U/okiq2V…`).
+  - herdr se conecta a la sesión `default` de mango, la misma que ves en el equipo.
+- **Verificado:** con los datos del celular, la conexión pasó por el relay de Tailscale (DERP en São Paulo) y SSH aceptó la clave. En casa usa la conexión directa.
+- **Pendiente:** "Disable key expiry" para mango en la consola de Tailscale; hoy vence el 2027-05-08.
+- **Riesgo:** si mango se congela estando desatendido, no se puede recuperar a distancia (ver el diagnóstico de congelamientos).
+
 ### Mantenimiento automático
 | Timer o servicio | Qué hace |
 |---|---|
