@@ -1,2 +1,2 @@
 #!/bin/bash
-exec loginctl lock-session
+exec "$HOME/.config/hypr/scripts/lock.sh"

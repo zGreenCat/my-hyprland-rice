@@ -239,7 +239,7 @@ Pantalla de bloqueo propia (`hypr/lockscreen/`, GJS + `Gtk4SessionLock`) con un 
 - Al desbloquear, la UI se desvanece y el video frena
 - Verifica con PAM (servicio `hyprlock`, solo `pam_authenticate`); tras 3 fallos hay espera creciente
 - Si `lock.js` no logra bloquear o se cae, `scripts/lock.sh` lanza hyprlock
-- **Keybind**: `Super + L` (`loginctl lock-session`); hypridle bloquea a los 5 min
+- **Keybind**: `Super + L` (llama `lock.sh` directo, funciona aunque hypridle no esté corriendo); hypridle bloquea a los 5 min
 - Pantalla apagada: a los 5.5 min con batería, a los 20 min siempre
 
 **Cómo se elige el tema:** `apply-theme.sh` escribe `lockscreen/theme.json` con `LOCK_LAYOUT`, `LOCK_VIDEO` y la paleta de `themes/<tema>/theme.conf`. Un tema sin `LOCK_VIDEO` usa su wallpaper fijo y el diseño `apilado`.
