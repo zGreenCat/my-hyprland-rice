@@ -67,7 +67,7 @@ layer("obsidian-hub", { blur = true, ignore_alpha = 0.15, animation = "popin" })
 layer("wallpaper-picker", { dim_around = true, animation = "popin" })
 layer("calendar", { blur = true, ignore_alpha = 0.15, animation = "popin 92%" })
 layer("control-center", { blur = true, ignore_alpha = 0.15, animation = "popin 92%" })
-layer("notification-popup", { blur = true, ignore_alpha = 0.15, animation = "slide" })
+layer("notification-popup", { blur = true, ignore_alpha = 0.15, animation = "popin 60%" })
 layer("calendar-scrim", { no_anim = true })
 layer("control-center-scrim", { no_anim = true })
 

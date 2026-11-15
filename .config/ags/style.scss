@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "colors" as *;
 
 $inner-rounding: $rounding * 0.7;
@@ -634,12 +635,6 @@ window.Scrim {
   }
 }
 
-.cc-group-head {
-  padding: 0 4px;
-  color: $on_surface_variant;
-  font-size: 0.85em;
-}
-
 .cc-muted {
   color: $on_surface_variant;
 }
@@ -648,40 +643,78 @@ window.Scrim {
   padding: 10px 4px;
 }
 
-.cc-notif {
-  padding: 12px;
-  border-radius: $rounding * 1.2;
-  background-color: rgba($on_surface, 0.06);
+// Línea de tiempo de notificaciones
+$app-colors: #e5484d, #f76b15, #e2a336, #46a758, #12a594, #0090ff, #6e56cf, #d6409f;
+
+@for $i from 1 through list.length($app-colors) {
+  .c#{$i - 1} {
+    background-color: list.nth($app-colors, $i);
+  }
 }
 
-.cc-notif-icon {
-  border-radius: $inner-rounding;
+.av.letter {
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8em;
 }
 
-.cc-notif-app {
+.tl-line {
+  padding: 2px 0;
+}
+
+.tl-time {
+  padding-top: 8px;
   color: $on_surface_variant;
-  font-size: 0.82em;
+  font-size: 0.8em;
+  font-feature-settings: "tnum";
 }
 
-.cc-notif-time {
+.tl-item {
+  padding: 6px 4px 8px 14px;
+  border-left: 1px solid rgba($on_surface, 0.14);
+
+  &.urgent {
+    border-left: 2px solid $error;
+  }
+}
+
+.tl-dot {
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 999px;
+}
+
+.tl-app {
   color: $on_surface_variant;
-  font-size: 0.82em;
+  font-size: 0.8em;
 }
 
-.cc-notif-summary {
+.tl-urgent {
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: rgba($error, 0.2);
+  color: $error;
+  font-size: 0.72em;
   font-weight: 600;
 }
 
-.cc-notif-body {
-  color: $on_surface_variant;
-  font-size: 0.9em;
+.tl-title {
+  font-weight: 600;
+  font-size: 0.95em;
 }
 
-.cc-notif-dismiss {
+.tl-body {
+  color: $on_surface_variant;
+  font-size: 0.88em;
+}
+
+.tl-dismiss {
   @include cc-chip-button;
-  padding: 2px 6px;
+  padding: 0 5px;
   border-radius: 999px;
   color: $on_surface_variant;
+  font-size: 0.8em;
 
   &:hover {
     background-color: rgba($on_surface, 0.08);
@@ -689,12 +722,37 @@ window.Scrim {
   }
 }
 
-// Avisos emergentes
-.toast {
-  @include modal-panel;
-  padding: 4px;
+// Isla (aviso flotante bajo el reloj)
+.island {
+  padding: 6px 18px 6px 6px;
+  border-radius: 999px;
+  background-color: rgba($surface_container_lowest, $panel-alpha);
+  border: 1px solid rgba($on_surface, 0.12);
+  color: $on_surface;
 
-  .cc-notif {
-    background: transparent;
+  &.urgent {
+    border: 2px solid $error;
   }
+
+  .av {
+    min-width: 30px;
+    min-height: 30px;
+  }
+}
+
+.island-title {
+  font-weight: 600;
+}
+
+.island-body {
+  color: $on_surface_variant;
+}
+
+.island-extra {
+  padding: 0 7px;
+  border-radius: 999px;
+  background-color: rgba($primary, 0.2);
+  color: $primary;
+  font-size: 0.8em;
+  font-weight: 600;
 }

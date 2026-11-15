@@ -1,11 +1,13 @@
 import GLib from "gi://GLib"
 import Pango from "gi://Pango"
 import Wp from "gi://AstalWp"
+import AstalNotifd from "gi://AstalNotifd?version=0.1"
 import app from "ags/gtk4/app"
 import { Astal, Gtk, Gdk } from "ags/gtk4"
 import { Accessor, createBinding, createConnection, createState, For, With } from "gnim"
 import { notifd, type Notification } from "../notifications/notifd"
-import { groupByApp, timeAgo, type PlayerState } from "./parse"
+import { LIMITS, plainText, timeLabel, truncate, type PlayerState } from "./parse"
+import Avatar, { colorClass } from "../notifications/Avatar"
 import {
   playerAction,
   readPlayer,
@@ -191,45 +193,43 @@ function Player({ player }: { player: PlayerState }) {
   )
 }
 
-function notificationIcon(n: Notification) {
-  const source = n.image || n.appIcon
-  if (source && source.startsWith("/") && GLib.file_test(source, GLib.FileTest.EXISTS)) {
-    return <image class="cc-notif-icon" file={source} pixelSize={32} />
-  }
-  return <image class="cc-notif-icon" iconName={n.appIcon || "dialog-information-symbolic"} pixelSize={32} />
-}
-
-export function NotificationCard({ n, dismissable = true }: { n: Notification; dismissable?: boolean }) {
+function TimelineItem({ n }: { n: Notification }) {
+  const title = plainText(n.summary)
+  const body = plainText(n.body)
+  const urgent = n.urgency === AstalNotifd.Urgency.CRITICAL
+  const clipped = title.length > LIMITS.listTitle || body.length > LIMITS.listBody
   return (
-    <box class="cc-notif" spacing={12}>
-      {notificationIcon(n)}
-      <box orientation={Gtk.Orientation.VERTICAL} hexpand spacing={2}>
-        <box spacing={6}>
-          <label class="cc-notif-app" label={n.appName || "Notificación"} xalign={0} ellipsize={Pango.EllipsizeMode.END} />
-          <label class="cc-notif-time" label={`· ${timeAgo(n.time)}`} xalign={0} hexpand />
+    <box class="tl-line" spacing={10}>
+      <label class="tl-time" label={timeLabel(n.time)} widthChars={5} xalign={1} valign={Gtk.Align.START} />
+      <box
+        class={urgent ? "tl-item urgent" : "tl-item"}
+        orientation={Gtk.Orientation.VERTICAL}
+        spacing={2}
+        hexpand
+        tooltipText={clipped ? [title, body].filter(Boolean).join("\n\n") : ""}
+      >
+        <box spacing={8}>
+          <box class={`tl-dot ${colorClass(n)}`} valign={Gtk.Align.CENTER} halign={Gtk.Align.CENTER} widthRequest={8} heightRequest={8} />
+          <Avatar n={n} size={16} />
+          <label class="tl-app" label={n.appName || "Notificación"} xalign={0} ellipsize={Pango.EllipsizeMode.END} />
+          <label class="tl-urgent" label="urgente" visible={urgent} />
+          <box hexpand />
+          <button class="tl-dismiss" focusOnClick={false} onClicked={() => n.dismiss()}>
+            <label label="󰅖" />
+          </button>
         </box>
-        <label class="cc-notif-summary" label={n.summary} xalign={0} wrap wrapMode={Pango.WrapMode.WORD_CHAR} />
-        {n.body ? (
-          <label
-            class="cc-notif-body"
-            label={n.body}
-            xalign={0}
-            wrap
-            wrapMode={Pango.WrapMode.WORD_CHAR}
-            lines={3}
-            ellipsize={Pango.EllipsizeMode.END}
-          />
-        ) : (
-          <box />
-        )}
+        <label class="tl-title" label={truncate(title, LIMITS.listTitle)} xalign={0} ellipsize={Pango.EllipsizeMode.END} />
+        <label
+          class="tl-body"
+          label={truncate(body, LIMITS.listBody)}
+          visible={body !== ""}
+          xalign={0}
+          wrap
+          wrapMode={Pango.WrapMode.WORD_CHAR}
+          lines={2}
+          ellipsize={Pango.EllipsizeMode.END}
+        />
       </box>
-      {dismissable ? (
-        <button class="cc-notif-dismiss" valign={Gtk.Align.START} focusOnClick={false} onClicked={() => n.dismiss()}>
-          <label label="󰅖" />
-        </button>
-      ) : (
-        <box />
-      )}
     </box>
   )
 }
@@ -242,7 +242,6 @@ export default function ControlCenter() {
   const [loaded, setLoaded] = createState(false)
   const [player, setPlayer] = createState<PlayerState | null>(null)
   const [notifications, setNotifications] = createState<Notification[]>([])
-  const [expanded, setExpanded] = createState<Set<string>>(new Set())
   const dnd = createBinding(notifd, "dontDisturb")
   const speaker = createConnection<Wp.Endpoint>(audio.default_speaker, [
     audio,
@@ -290,15 +289,6 @@ export default function ControlCenter() {
     return GLib.SOURCE_CONTINUE
   })
 
-  function toggleGroup(appName: string) {
-    setExpanded((set) => {
-      const next = new Set(set)
-      if (next.has(appName)) next.delete(appName)
-      else next.add(appName)
-      return next
-    })
-  }
-
   return (
     <window
       name={CONTROL_WINDOW}
@@ -318,7 +308,6 @@ export default function ControlCenter() {
           refreshNotifications()
         } else {
           setMixerOpen(false)
-          setExpanded(new Set<string>())
         }
       }}
     >
@@ -448,26 +437,8 @@ export default function ControlCenter() {
                   list.length === 0 ? (
                     <label class="cc-muted cc-empty" label="Sin notificaciones" xalign={0} hexpand />
                   ) : (
-                    <box orientation={Gtk.Orientation.VERTICAL} spacing={8} hexpand>
-                      {groupByApp(list).map((group) => {
-                        const open = expanded.peek().has(group.app)
-                        const shown = open ? group.items : group.items.slice(0, 1)
-                        return (
-                          <box orientation={Gtk.Orientation.VERTICAL} spacing={6}>
-                            {group.items.length > 1 ? (
-                              <box class="cc-group-head">
-                                <label label={`${group.app} · ${group.items.length}`} xalign={0} hexpand />
-                                <button class="cc-link" focusOnClick={false} onClicked={() => { toggleGroup(group.app); refreshNotifications() }}>
-                                  <label label={open ? "Mostrar menos" : "Mostrar todo"} />
-                                </button>
-                              </box>
-                            ) : (
-                              <box />
-                            )}
-                            {shown.map((n) => <NotificationCard n={n} />)}
-                          </box>
-                        )
-                      })}
+                    <box orientation={Gtk.Orientation.VERTICAL} spacing={4} hexpand>
+                      {list.map((n) => <TimelineItem n={n} />)}
                     </box>
                   )
                 }

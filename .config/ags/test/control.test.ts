@@ -1,7 +1,12 @@
 import { test } from "node:test"
 import assert from "node:assert/strict"
 import {
-  groupByApp,
+  appColorIndex,
+  initial,
+  LIMITS,
+  plainText,
+  timeLabel,
+  truncate,
   parseBluetoothPowered,
   parseBrightness,
   parseConnectedDevice,
@@ -48,21 +53,6 @@ test("parsePlayer acepta Playing/Paused con título y descarta lo demás", () =>
   assert.equal(parsePlayer(""), null)
 })
 
-test("groupByApp agrupa respetando el orden de aparición", () => {
-  const items = [
-    { id: 1, appName: "Discord" },
-    { id: 2, appName: "Spotify" },
-    { id: 3, appName: "Discord" },
-    { id: 4, appName: "" },
-  ]
-  const groups = groupByApp(items)
-  assert.deepEqual(groups.map((g) => [g.app, g.items.map((i) => i.id)]), [
-    ["Discord", [1, 3]],
-    ["Spotify", [2]],
-    ["Notificación", [4]],
-  ])
-})
-
 test("timeAgo", () => {
   const now = 1_800_000_000_000
   const s = now / 1000
@@ -94,4 +84,50 @@ test("shiftMonth cruza años en ambos sentidos", () => {
   assert.deepEqual(shiftMonth({ year: 2026, month: 0 }, -1), { year: 2025, month: 11 })
   assert.deepEqual(shiftMonth({ year: 2026, month: 11 }, 1), { year: 2027, month: 0 })
   assert.equal(monthTitle({ year: 2026, month: 10 }), "Noviembre 2026")
+})
+
+test("plainText quita HTML de Chromium y convierte entidades", () => {
+  const body = '<a href="https://cl.pinterest.com/">cl.pinterest.com</a>\n\nIdeas basadas en tu gusto <img src="file:///tmp/x.png" alt=""/>'
+  assert.equal(plainText(body), "cl.pinterest.com Ideas basadas en tu gusto")
+  assert.equal(plainText("Tom &amp; Jerry &lt;3 &#39;hola&#x27; &nbsp;fin"), "Tom & Jerry <3 'hola' fin")
+  assert.equal(plainText("línea 1<br>línea 2"), "línea 1 línea 2")
+})
+
+test("truncate respeta el límite y corta en una palabra", () => {
+  const text = "¿Subiste el tema charigod? Quiero probarlo esta noche con el portfolio"
+  const short = truncate(text, LIMITS.islandBody)
+  assert.ok([...short].length <= LIMITS.islandBody)
+  assert.ok(short.endsWith("…"))
+  assert.equal(short, "¿Subiste el tema charigod? Quiero probarlo esta noche con…")
+  assert.equal(truncate("corto", 32), "corto")
+})
+
+test("truncate corta en seco si no hay espacios útiles", () => {
+  assert.equal(truncate("~/Pictures/Screenshots/2026-11-14_23-31.png", 20), "~/Pictures/Screensh…")
+})
+
+test("truncate cuenta emoji como un carácter", () => {
+  assert.equal(truncate("🎉🎉🎉🎉", 3), "🎉🎉…")
+})
+
+test("timeLabel: hora hoy, ayer, o fecha", () => {
+  const now = new Date(2026, 10, 15, 0, 30)
+  const at = (d: Date) => d.getTime() / 1000
+  assert.equal(timeLabel(at(new Date(2026, 10, 15, 0, 5)), now), "00:05")
+  assert.equal(timeLabel(at(new Date(2026, 10, 14, 23, 52)), now), "ayer")
+  assert.equal(timeLabel(at(new Date(2026, 10, 13, 9, 0)), now), "13/11")
+})
+
+test("appColorIndex es estable y está en rango", () => {
+  assert.equal(appColorIndex("Discord"), appColorIndex("discord"))
+  for (const app of ["Discord", "Spotify", "Claude Code", "Chromium", ""]) {
+    const i = appColorIndex(app)
+    assert.ok(i >= 0 && i < 8)
+  }
+})
+
+test("initial", () => {
+  assert.equal(initial("discord"), "D")
+  assert.equal(initial("  ñandú"), "Ñ")
+  assert.equal(initial(""), "?")
 })
