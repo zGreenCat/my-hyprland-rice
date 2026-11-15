@@ -6,7 +6,7 @@ import Gtk from 'gi://Gtk?version=4.0';
 import SessionLock from 'gi://Gtk4SessionLock';
 import System from 'system';
 
-import { DEFAULT_CONFIG, FailureTracker, clockParts, parseThemeConfig } from './config.js';
+import { DEFAULT_CONFIG, FailureTracker, clockParts, parseThemeConfig, revealFrame } from './config.js';
 
 const DIR = GLib.path_get_dirname(GLib.filename_from_uri(import.meta.url)[0]);
 const CONFIG_PATH = GLib.build_filenamev([DIR, 'theme.json']);
@@ -16,7 +16,8 @@ const TEST_UNLOCK_AFTER = Number(GLib.getenv('LOCK_TEST_UNLOCK_AFTER') ?? 0);
 
 const EXIT_FAILED_TO_LOCK = 3;
 const ERROR_VISIBLE_MS = 2500;
-const DECEL_MS = 1200;
+const REVEAL_MS = 1100;
+const REVEAL_SAFETY_MS = 3000;
 const DECEL_STEPS = 12;
 const DPMS_POLL_S = 5;
 
@@ -70,6 +71,14 @@ function runAsync(argv, input = null) {
             }
         });
     });
+}
+
+// Con xray Hyprland dibuja el escritorio bajo el bloqueo: solo se activa tras autenticar.
+async function setLockXray(enabled) {
+    const { code, stdout, stderr } = await runAsync(
+        ['hyprctl', 'eval', `hl.config({ misc = { session_lock_xray = ${enabled} } })`]);
+    if (code !== 0 || stdout.trim() !== 'ok')
+        throw new Error(`hyprctl eval respondió "${(stdout || stderr).trim()}"`);
 }
 
 async function authenticate(password) {
@@ -344,21 +353,56 @@ function main() {
             setAll('idle');
     };
 
-    const unlockGracefully = () => {
+    const unlockGracefully = async () => {
         if (unlocking)
             return;
         unlocking = true;
-        screens.forEach((s) => s.layout.widgets.forEach((w) => w.set_opacity(0)));
-        let step = 0;
-        GLib.timeout_add(GLib.PRIORITY_DEFAULT, DECEL_MS / DECEL_STEPS, () => {
-            step += 1;
-            const t = step / DECEL_STEPS;
-            if (!background.setRate(Math.max(0.05, (1 - t) ** 2)))
-                step = DECEL_STEPS;
-            if (step < DECEL_STEPS)
-                return GLib.SOURCE_CONTINUE;
+
+        let reveal = true;
+        try {
+            await setLockXray(true);
+        } catch (e) {
+            log(`no se pudo activar session_lock_xray, desbloqueo sin fundido al escritorio: ${e.message}`);
+            reveal = false;
+        }
+        if (reveal)
+            screens.forEach((s) => s.win.add_css_class('revealing'));
+
+        let finished = false;
+        let rateOk = true;
+        let lastStep = 0;
+        const finish = () => {
+            if (finished)
+                return;
+            finished = true;
             background.stop();
             lock.unlock();
+        };
+        const safety = GLib.timeout_add(GLib.PRIORITY_DEFAULT, REVEAL_SAFETY_MS, () => {
+            log('el fundido no terminó a tiempo; desbloqueo directo');
+            finish();
+            return GLib.SOURCE_REMOVE;
+        });
+
+        let start = 0;
+        screens[0].root.add_tick_callback((_w, clock) => {
+            const now = clock.get_frame_time() / 1000;
+            start ||= now;
+            const t = (now - start) / REVEAL_MS;
+            const frame = revealFrame(t, reveal);
+            screens.forEach((s) => {
+                s.layout.widgets.forEach((w) => w.set_opacity(frame.uiOpacity));
+                s.root.set_opacity(frame.rootOpacity);
+            });
+            const step = Math.floor(Math.min(1, t) * DECEL_STEPS);
+            if (rateOk && step !== lastStep) {
+                lastStep = step;
+                rateOk = background.setRate(frame.rate);
+            }
+            if (!frame.done)
+                return GLib.SOURCE_CONTINUE;
+            GLib.source_remove(safety);
+            finish();
             return GLib.SOURCE_REMOVE;
         });
     };
@@ -429,7 +473,7 @@ function main() {
         win.add_controller(keys);
         win.connect('map', () => auth.entry.grab_focus());
 
-        screens.push({ auth, layout });
+        screens.push({ auth, layout, win, root: overlay });
         layout.update(clockParts(new Date()));
         lock.assign_window_to_monitor(win, monitor);
     });
@@ -452,7 +496,9 @@ function main() {
     });
     lock.connect('unlocked', () => {
         log('desbloqueado');
-        loop.quit();
+        setLockXray(false)
+            .catch((e) => log(`no se pudo desactivar session_lock_xray: ${e.message}`))
+            .finally(() => loop.quit());
     });
 
     GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000 - (Date.now() % 1000), () => {
@@ -480,6 +526,7 @@ function main() {
         });
     }
 
+    setLockXray(false).catch((e) => log(`no se pudo asegurar session_lock_xray apagado: ${e.message}`));
     if (!lock.lock()) {
         log('lock() devolvió false');
         return EXIT_FAILED_TO_LOCK;

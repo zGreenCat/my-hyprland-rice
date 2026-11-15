@@ -101,3 +101,15 @@ export function clockParts(date, locale = 'es-CL') {
         monthLong: fmt({ month: 'long' }),
     };
 }
+
+export const easeInOutCubic = (t) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
+
+export function revealFrame(t, reveal = true) {
+    const p = Math.min(1, Math.max(0, t));
+    return {
+        uiOpacity: Math.max(0, 1 - p * 3),
+        rootOpacity: reveal ? 1 - easeInOutCubic(p) : 1,
+        rate: Math.max(0.05, (1 - p) ** 2),
+        done: p >= 1,
+    };
+}

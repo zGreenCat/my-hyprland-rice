@@ -4,6 +4,9 @@ window.lockscreen {
     background-color: @lock_bg;
     color: @lock_fg;
 }
+window.lockscreen.revealing {
+    background-color: transparent;
+}
 
 .text-shadow {
     text-shadow: 0 2px 18px alpha(black, 0.35);

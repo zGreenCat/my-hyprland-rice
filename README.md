@@ -236,7 +236,7 @@ Pantalla de bloqueo propia (`hypr/lockscreen/`, GJS + `Gtk4SessionLock`) con un 
 - En reposo solo muestra hora y fecha; el campo de contraseña aparece al escribir
 - Cada tema tiene su diseño: `apilado` (everforest), `telemetria` (crimson-noir), `orbital` (charigod), `horizonte` (catppuccin)
 - Video decodificado por VA-API en la iGPU (~5% CPU); la NVIDIA no despierta
-- Al desbloquear, la UI se desvanece y el video frena
+- Al desbloquear, el reloj se va, el video frena y el bloqueo se funde con el escritorio (`misc.session_lock_xray` solo se enciende tras autenticar)
 - Verifica con PAM (servicio `hyprlock`, solo `pam_authenticate`); tras 3 fallos hay espera creciente
 - Si `lock.js` no logra bloquear o se cae, `scripts/lock.sh` lanza hyprlock
 - **Keybind**: `Super + L` (llama `lock.sh` directo, funciona aunque hypridle no esté corriendo); hypridle bloquea a los 5 min
