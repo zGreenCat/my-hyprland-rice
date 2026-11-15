@@ -30,6 +30,7 @@ anim("fade", 6, "fade")
 anim("fadeDim", 6, "fade")
 anim("fadeSwitch", 5, "fade")
 anim("fadeShadow", 5, "fade")
+anim("layersIn", 6, "spaceIn")
 anim("fadeLayersIn", 5, "fade")
 anim("fadeLayersOut", 5, "fade")
 

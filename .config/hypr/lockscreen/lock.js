@@ -73,13 +73,22 @@ function runAsync(argv, input = null) {
     });
 }
 
-// Con xray Hyprland dibuja el escritorio bajo el bloqueo: solo se activa tras autenticar.
-async function setLockXray(enabled) {
-    const { code, stdout, stderr } = await runAsync(
-        ['hyprctl', 'eval', `hl.config({ misc = { session_lock_xray = ${enabled} } })`]);
+async function hyprEval(lua) {
+    const { code, stdout, stderr } = await runAsync(['hyprctl', 'eval', lua]);
     if (code !== 0 || stdout.trim() !== 'ok')
         throw new Error(`hyprctl eval respondió "${(stdout || stderr).trim()}"`);
 }
+
+// Con xray Hyprland dibuja el escritorio bajo el bloqueo: solo se activa tras autenticar.
+const setLockXray = (enabled) => hyprEval(`hl.config({ misc = { session_lock_xray = ${enabled} } })`);
+
+// Waybar se cierra al bloquear y se relanza al desbloquear para que entre con la
+// animación de su regla de capa (configs/windowrules.lua). Lo lanza Hyprland, no este proceso.
+async function stopWaybar() {
+    const { code } = await runAsync(['pkill', '-x', 'waybar']);
+    return code === 0;
+}
+const startWaybar = () => hyprEval('hl.exec_cmd("GDK_BACKEND=wayland waybar")');
 
 async function authenticate(password) {
     const { code, stderr } = await runAsync(['python3', '-I', AUTH_HELPER], `${password}\n`);
@@ -338,6 +347,7 @@ function main() {
     let exitCode = 0;
     let busy = false;
     let unlocking = false;
+    let waybarStopped = false;
     let errorTimer = 0;
 
     const setAll = (state, message = '') => screens.forEach((s) => s.auth.setState(state, message));
@@ -367,6 +377,10 @@ function main() {
         }
         if (reveal)
             screens.forEach((s) => s.win.add_css_class('revealing'));
+        if (waybarStopped) {
+            waybarStopped = false;
+            startWaybar().catch((e) => log(`no se pudo relanzar waybar: ${e.message}`));
+        }
 
         let finished = false;
         let rateOk = true;
@@ -481,6 +495,16 @@ function main() {
     lock.connect('locked', () => {
         log(`bloqueado · tema ${config.theme} · diseño ${config.layout} · video ${background.paintable ? 'sí' : 'no'}`);
         background.play();
+        stopWaybar()
+            .then((stopped) => {
+                if (!stopped)
+                    return;
+                if (unlocking)
+                    startWaybar().catch((e) => log(`no se pudo relanzar waybar: ${e.message}`));
+                else
+                    waybarStopped = true;
+            })
+            .catch((e) => log(`no se pudo cerrar waybar: ${e.message}`));
         if (TEST_UNLOCK_AFTER > 0) {
             log(`MODO PRUEBA: desbloqueo automático en ${TEST_UNLOCK_AFTER} s`);
             GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, TEST_UNLOCK_AFTER, () => {

@@ -69,7 +69,7 @@ layer("notification-center", { blur = true, ignore_alpha = 0.15, animation = "sl
 layer("notification-popup", { animation = "slide" })
 layer("audiomixer", { blur = true, ignore_alpha = 0.15, animation = "slide" })
 
-layer("waybar", { blur = true, ignore_alpha = 0.5 })
+layer("waybar", { blur = true, ignore_alpha = 0.5, animation = "popin 85%" })
 layer("logout_dialog", { blur = true })
 
 -- FLOAT POR TAG / APPS
