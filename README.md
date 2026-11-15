@@ -15,7 +15,7 @@ Rice minimalista y elegante inspirado en el cosmos, con animaciones suaves y col
 - 🔧 **Scripts útiles** - Picker de wallpapers, control de volumen/brillo, screenshots
 - 📊 **Waybar personalizado** - Múltiples layouts y estilos intercambiables
 - 🔔 **SwayNC** - Centro de notificaciones moderno
-- 🔒 **Hyprlock** - Pantalla de bloqueo integrada
+- 🔒 **Bloqueo con video** - Pantalla de bloqueo estilo macOS con video por tema (hyprlock como respaldo)
 
 ## 🖼️ Screenshots
 
@@ -231,13 +231,30 @@ Este proyecto es de uso libre. Siéntete libre de usar, modificar y compartir.
 
 ## 🆕 Nuevas Features
 
-### 🔒 Hyprlock
-Pantalla de bloqueo personalizada con:
-- Wallpaper con blur y efectos
-- Reloj grande en morado espacial
-- Fecha y usuario
-- Indicador de batería
-- **Keybind**: `Super + L`
+### 🔒 Bloqueo con video
+Pantalla de bloqueo propia (`hypr/lockscreen/`, GJS + `Gtk4SessionLock`) con un video en loop según el tema activo:
+- En reposo solo muestra hora y fecha; el campo de contraseña aparece al escribir
+- Cada tema tiene su diseño: `apilado` (everforest), `telemetria` (crimson-noir), `orbital` (charigod), `horizonte` (catppuccin)
+- Video decodificado por VA-API en la iGPU (~5% CPU); la NVIDIA no despierta
+- Al desbloquear, la UI se desvanece y el video frena
+- Verifica con PAM (servicio `hyprlock`, solo `pam_authenticate`); tras 3 fallos hay espera creciente
+- Si `lock.js` no logra bloquear o se cae, `scripts/lock.sh` lanza hyprlock
+- **Keybind**: `Super + L` (`loginctl lock-session`); hypridle bloquea a los 5 min
+- Pantalla apagada: a los 5.5 min con batería, a los 20 min siempre
+
+**Cómo se elige el tema:** `apply-theme.sh` escribe `lockscreen/theme.json` con `LOCK_LAYOUT`, `LOCK_VIDEO` y la paleta de `themes/<tema>/theme.conf`. Un tema sin `LOCK_VIDEO` usa su wallpaper fijo y el diseño `apilado`.
+
+**Videos:** viven en `~/.local/share/lockscreen/<tema>.mp4` (no van al repo). Para preparar uno nuevo (1080p, tono del tema, loop sin corte):
+```bash
+~/.config/hypr/scripts/lock-video-prep.sh fuente.mp4 <tema> --tone 65 --stops C1,C2,C3,C4
+```
+El comando exacto de cada video está comentado en su `theme.conf`.
+
+**Logs y tests:**
+```bash
+journalctl --user -t lockscreen
+cd ~/.config/hypr/lockscreen && gjs -m test/config.test.js
+```
 
 ### 🔌 Wlogout  
 Menú de salida elegante con opciones:

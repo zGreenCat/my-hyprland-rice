@@ -355,6 +355,27 @@ EOF
 [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ] && \
     ln -sf "$WALLPAPER" "$HOME/.config/hypr/current_wallpaper" 2>/dev/null
 
+# ─── 9b. Bloqueo con video (lockscreen/theme.json) ───────────────────────
+LOCK_JSON="$HOME/.config/hypr/lockscreen/theme.json"
+if [ -n "${LOCK_VIDEO:-}" ] && [ ! -f "$LOCK_VIDEO" ]; then
+    echo "apply-theme: no existe LOCK_VIDEO=$LOCK_VIDEO; el bloqueo usará el wallpaper (prepáralo con scripts/lock-video-prep.sh)" >&2
+fi
+if [ -d "$(dirname "$LOCK_JSON")" ]; then
+    THEME_NAME_ID="$1" LOCK_LAYOUT="${LOCK_LAYOUT:-apilado}" LOCK_VIDEO="${LOCK_VIDEO:-}" WALLPAPER="${WALLPAPER:-}" \
+    C_FG="$C_FG" C_ACCENT="$C_ACCENT" C_RED="$C_RED" C_BG="$C_BG" \
+    python3 -I -c '
+import json, os, sys
+e = os.environ
+json.dump({
+    "theme": e["THEME_NAME_ID"],
+    "layout": e["LOCK_LAYOUT"],
+    "video": e["LOCK_VIDEO"] or None,
+    "wallpaper": e["WALLPAPER"] or None,
+    "colors": {"fg": e["C_FG"], "accent": e["C_ACCENT"], "red": e["C_RED"], "bg": e["C_BG"]},
+}, open(sys.argv[1], "w"), ensure_ascii=False, indent=2)
+' "$LOCK_JSON" || echo "apply-theme: no se pudo escribir $LOCK_JSON" >&2
+fi
+
 # ─── 10. Recargar servicios ──────────────────────────────────────────────
 ACTIVE_LAYOUT_FILE="$HOME/.config/hypr/.active-waybar-layout"
 CURRENT_LAYOUT=$(cat "$ACTIVE_LAYOUT_FILE" 2>/dev/null || echo "")

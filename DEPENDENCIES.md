@@ -16,6 +16,10 @@ yay -S matugen-bin  # Generador de colores desde wallpaper
 ### Notificaciones y Lockscreen
 ```bash
 sudo pacman -S swaync wlogout hyprlock hypridle
+# Bloqueo con video (hypr/lockscreen)
+sudo pacman -S gjs gtk4-layer-shell gst-plugin-gtk4 gst-plugin-va gst-plugins-good ttf-montserrat
+sudo pacman -S ffmpeg  # solo para preparar videos (lock-video-prep.sh)
+# Orbitron (diseño orbital) viene con sddm-astronaut-theme (AUR)
 ```
 
 ### Utilidades de Sistema

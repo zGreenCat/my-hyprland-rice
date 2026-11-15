@@ -1,2 +1,2 @@
 #!/bin/bash
-hyprlock
+exec loginctl lock-session

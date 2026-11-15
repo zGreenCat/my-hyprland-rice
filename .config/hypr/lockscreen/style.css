@@ -1,0 +1,161 @@
+/* Colores: @lock_fg, @lock_accent, @lock_red y @lock_bg los define lock.js desde theme.json. */
+
+window.lockscreen {
+    background-color: @lock_bg;
+    color: @lock_fg;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 18px alpha(black, 0.35);
+}
+
+/* ---------- velo por diseño ---------- */
+.scrim-apilado {
+    background-image: radial-gradient(ellipse 45% 60% at 50% 46%, alpha(black, 0.40), transparent 75%);
+}
+.scrim-telemetria {
+    background-image: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 60%, alpha(black, 0.55));
+}
+.scrim-orbital {
+    background-image: radial-gradient(ellipse 60% 75% at 0% 100%, alpha(black, 0.60), transparent 70%);
+}
+.scrim-horizonte {
+    background-image: radial-gradient(ellipse 30% 55% at 50% 50%, alpha(black, 0.35), transparent);
+}
+
+/* ---------- campo de contraseña ---------- */
+.auth {
+    opacity: 0;
+    transition: opacity 350ms ease;
+}
+.auth.shown {
+    opacity: 1;
+}
+
+.field {
+    min-height: 40px;
+    font-size: 16px;
+}
+
+entry.lock-entry,
+entry.lock-entry:focus,
+entry.lock-entry:focus-within {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    min-height: 0;
+    padding: 0 4px;
+    color: @lock_fg;
+    caret-color: @lock_accent;
+    font-size: 16px;
+}
+
+.prompt {
+    color: @lock_accent;
+    font-size: 16px;
+}
+
+.msg {
+    min-height: 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: alpha(@lock_fg, 0.75);
+}
+.auth.error .msg {
+    color: @lock_red;
+}
+.auth.error .field {
+    animation: shake 420ms ease-in-out;
+}
+.auth.verifying .field {
+    animation: pulse 1100ms ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { margin-left: 0; margin-right: 0; }
+    20%, 60% { margin-left: 0; margin-right: 26px; }
+    40%, 80% { margin-left: 26px; margin-right: 0; }
+}
+@keyframes pulse {
+    50% { opacity: 0.5; }
+}
+
+/* ---------- Apilado (everforest) ---------- */
+.apilado {
+    font-family: "JetBrainsMono NFM", "JetBrains Mono", monospace;
+}
+.apilado .digits {
+    font-size: 161px;
+    font-weight: 100;
+    letter-spacing: 3px;
+}
+.apilado .date {
+    margin-top: 30px;
+    font-size: 16px;
+    letter-spacing: 5px;
+    color: alpha(@lock_fg, 0.65);
+}
+.apilado .field {
+    min-width: 192px;
+    border-bottom: 1px solid alpha(@lock_accent, 0.7);
+}
+
+/* ---------- Telemetría (crimson-noir) ---------- */
+.telemetria {
+    font-family: "JetBrainsMono NFM", "JetBrains Mono", monospace;
+}
+.telemetria .time {
+    font-size: 61px;
+    font-weight: 200;
+}
+.telemetria .sub {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: alpha(@lock_fg, 0.55);
+}
+
+/* ---------- Orbital (charigod) ---------- */
+.orbital {
+    font-family: "Orbitron", sans-serif;
+}
+.orbital .time {
+    font-size: 119px;
+    font-weight: 400;
+    letter-spacing: 10px;
+}
+.orbital .date {
+    margin-top: 17px;
+    font-size: 15px;
+    letter-spacing: 7px;
+    color: alpha(@lock_fg, 0.7);
+}
+.orbital .field {
+    min-width: 230px;
+    border-bottom: 1px solid alpha(@lock_accent, 0.8);
+}
+.orbital entry.lock-entry {
+    letter-spacing: 3px;
+}
+
+/* ---------- Horizonte (catppuccin) ---------- */
+.horizonte {
+    font-family: "Montserrat", sans-serif;
+}
+.horizonte .time {
+    font-size: 173px;
+    font-weight: 100;
+}
+.horizonte .date {
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 9px;
+    color: alpha(@lock_fg, 0.7);
+}
+.horizonte .field {
+    min-width: 211px;
+    margin-top: 23px;
+    padding: 0 19px;
+    border-radius: 999px;
+    border: 1px solid alpha(@lock_accent, 0.6);
+}
