@@ -50,6 +50,12 @@ for file in "$CONFIG_DIR/hypr/lockscreen/"*.{js,py,css} "$CONFIG_DIR/hypr/locksc
     [ -f "$file" ] && cp "$file" "$REPO_DIR/.config/hypr/lockscreen/${file#"$CONFIG_DIR/hypr/lockscreen/"}"
 done
 
+# AGS: colors.scss lo genera apply-theme.sh; node_modules y @girs los genera ags
+echo "📁 AGS..."
+mkdir -p "$REPO_DIR/.config/ags"
+rsync -a --exclude node_modules --exclude @girs --exclude colors.scss --exclude __pycache__ \
+    "$CONFIG_DIR/ags/" "$REPO_DIR/.config/ags/"
+
 # Waybar
 echo "📁 Waybar..."
 [ -d "$CONFIG_DIR/waybar" ] && cp -r "$CONFIG_DIR/waybar/"* "$REPO_DIR/.config/waybar/" 2>/dev/null

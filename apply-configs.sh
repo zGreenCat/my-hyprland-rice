@@ -37,6 +37,10 @@ apply_config() {
 echo "📁 Hyprland..."
 apply_config "$REPO_DIR/.config/hypr" "$CONFIG_DIR/" "hypr"
 
+# AGS (colors.scss lo escribe apply-theme.sh)
+echo "📁 AGS..."
+apply_config "$REPO_DIR/.config/ags" "$CONFIG_DIR/" "ags"
+
 # Waybar
 echo "📁 Waybar..."
 apply_config "$REPO_DIR/.config/waybar" "$CONFIG_DIR/" "waybar"

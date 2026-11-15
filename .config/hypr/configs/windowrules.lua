@@ -62,6 +62,7 @@ rule({ title = "^(Theme Toggle)$" }, {
 
 -- AGS/ASTAL MENUS (omenu, obsidian-hub)
 layer("omenu", { blur = true, ignore_alpha = 0.15, animation = "popin" })
+layer("clipboard", { blur = true, ignore_alpha = 0.15, animation = "popin" })
 layer("obsidian-hub", { blur = true, ignore_alpha = 0.15, animation = "popin" })
 layer("wallpaper-picker", { dim_around = true, animation = "popin" })
 layer("calendar", { blur = true, ignore_alpha = 0.15, animation = "slide" })

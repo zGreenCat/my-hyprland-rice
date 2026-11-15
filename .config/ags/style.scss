@@ -1,0 +1,663 @@
+@use "colors" as *;
+
+$inner-rounding: $rounding * 0.7;
+
+// ─── Panel común de los modales (lanzador y portapapeles) ─────────────────
+$panel-alpha: 0.92;
+
+@mixin modal-panel {
+  background-color: rgba($surface, $panel-alpha);
+  color: $on_surface;
+  border: 1px solid rgba($on_surface, 0.12);
+  border-radius: $rounding * 1.4;
+}
+
+@mixin modal-row {
+  background: transparent;
+  border: none;
+  border-radius: $inner-rounding;
+  outline: none;
+  box-shadow: none;
+  color: $on_surface;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: rgba($primary, 0.08);
+  }
+
+  &.selected {
+    background-color: rgba($primary, 0.18);
+  }
+}
+
+@mixin modal-entry {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 0;
+  min-height: 0;
+  color: $on_surface;
+  caret-color: $primary;
+}
+
+@mixin modal-foot {
+  padding: 10px 22px;
+  border-top: 1px solid rgba($on_surface, 0.10);
+  color: $on_surface_variant;
+  font-size: 0.85em;
+}
+
+window.Clipboard,
+window.OMenu {
+  background: transparent;
+}
+
+// ─── Lanzador (SUPER+TAB): paleta de comandos ──────────────────────────────
+.omenu-root {
+  @include modal-panel;
+  min-width: 680px;
+}
+
+.omenu-search {
+  padding: 18px 22px 12px;
+  font-size: 1.35em;
+}
+
+.omenu-prompt {
+  color: $primary;
+}
+
+.omenu-entry {
+  @include modal-entry;
+}
+
+.omenu-chips {
+  padding: 0 22px 14px;
+}
+
+.omenu-chip {
+  padding: 2px 11px;
+  min-height: 0;
+  border-radius: 999px;
+  border: 1px solid rgba($on_surface, 0.14);
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  color: $on_surface_variant;
+  font-size: 0.85em;
+
+  &:hover {
+    border-color: rgba($primary, 0.6);
+  }
+
+  &.on {
+    background-color: $primary;
+    border-color: $primary;
+    color: $on_primary;
+  }
+}
+
+.omenu-list {
+  min-height: 420px;
+  padding: 8px;
+  border-top: 1px solid rgba($on_surface, 0.10);
+}
+
+.omenu-section {
+  padding: 10px 14px 4px;
+  color: $on_surface_variant;
+  font-size: 0.78em;
+  letter-spacing: 1px;
+}
+
+.omenu-row {
+  @include modal-row;
+  padding: 8px 14px;
+  min-height: 0;
+}
+
+.omenu-appicon {
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.omenu-acticon {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: $inner-rounding;
+  background-color: rgba($primary, 0.18);
+  color: $primary;
+}
+
+.omenu-title {
+  font-size: 1.05em;
+}
+
+.omenu-meta {
+  color: $on_surface_variant;
+  font-size: 0.85em;
+}
+
+.omenu-key {
+  padding: 0 6px;
+  border-radius: 5px;
+  border: 1px solid rgba($on_surface, 0.18);
+  color: $on_surface_variant;
+  font-size: 0.8em;
+}
+
+.omenu-empty {
+  padding: 14px;
+  color: $on_surface_variant;
+}
+
+.omenu-foot {
+  @include modal-foot;
+}
+
+// ─── Portapapeles (SUPER+V): lista con vista previa ───────────────────────
+.clip-root {
+  @include modal-panel;
+  min-width: 900px;
+  min-height: 520px;
+}
+
+.clip-search {
+  @include modal-entry;
+  padding: 16px 22px;
+  font-size: 1.15em;
+  border-bottom: 1px solid rgba($on_surface, 0.10);
+}
+
+.clip-scroll {
+  border-right: 1px solid rgba($on_surface, 0.10);
+}
+
+.clip-list {
+  padding: 8px;
+}
+
+.clip-row {
+  @include modal-row;
+  padding: 7px 12px;
+  min-height: 0;
+}
+
+.clip-thumb {
+  border-radius: 6px;
+}
+
+.clip-glyph {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 6px;
+  background-color: rgba($on_surface, 0.08);
+  color: $primary;
+  font-size: 0.85em;
+}
+
+.clip-label {
+  font-size: 0.95em;
+}
+
+.clip-preview {
+  padding: 20px 22px;
+}
+
+.clip-meta {
+  color: $on_surface_variant;
+  font-size: 0.85em;
+}
+
+.clip-textbox {
+  border-radius: $inner-rounding;
+  background-color: rgba($surface_container_lowest, 0.45);
+}
+
+.clip-text {
+  padding: 16px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 0.95em;
+}
+
+.clip-color {
+  font-size: 2em;
+}
+
+.clip-image {
+  border-radius: $inner-rounding;
+}
+
+.clip-empty {
+  color: $on_surface_variant;
+}
+
+.clip-foot {
+  @include modal-foot;
+}
+
+window.ObsidianHub {
+  background: transparent;
+}
+
+.obsidian-root {
+  background-color: rgba($surface, 0.18);
+  color: $on_surface;
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $rounding;
+  padding: 12px;
+}
+
+.obsidian-header {
+  margin-bottom: 10px;
+  padding: 4px 4px 8px 4px;
+  border-bottom: 1px solid rgba($outline_variant, 0.35);
+}
+
+.obsidian-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: $primary;
+  margin-bottom: 8px;
+}
+
+.obsidian-back {
+  background: transparent;
+  border-radius: $inner-rounding;
+  padding: 4px 8px;
+  margin-right: 8px;
+  color: $on_surface;
+}
+
+.obsidian-back:hover {
+  background-color: rgba($primary_container, 0.7);
+}
+
+.obsidian-list {
+  margin-top: 2px;
+}
+
+.obsidian-item {
+  background: transparent;
+  border-radius: $inner-rounding;
+  padding: 8px 12px;
+  margin: 2px 0;
+  color: $on_surface;
+}
+
+.obsidian-item image {
+  margin-right: 12px;
+  color: $primary;
+}
+
+.obsidian-item:hover {
+  background-color: rgba($primary_container, 0.7);
+  color: $on_primary_container;
+}
+
+.obsidian-item:hover image {
+  color: $on_primary_container;
+}
+
+.obsidian-entry {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: $inner-rounding;
+  background-color: rgba($surface_container, 0.4);
+  color: $on_surface;
+  border: 1px solid rgba($outline_variant, 0.4);
+}
+
+.obsidian-submit {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: $inner-rounding;
+  background-color: rgba($primary, 0.9);
+  color: $on_primary;
+  font-weight: bold;
+}
+
+.obsidian-submit:hover {
+  background-color: $primary_fixed_dim;
+}
+
+window.WallpaperPicker {
+  background: transparent;
+}
+
+.wp-root {
+  padding: 40px;
+}
+
+.wp-card {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 6px;
+  opacity: 1;
+  transition: transform 280ms ease;
+}
+
+.wp-thumb {
+  border-radius: $inner-rounding;
+}
+
+window.CalendarPopup {
+  background: transparent;
+}
+
+.cal-root {
+  background-color: rgba($surface, 0.55);
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $rounding;
+  padding: 16px;
+}
+
+.cal-panel {
+  padding: 0 12px;
+}
+
+.cal-panel.current {
+  background-color: rgba($primary_container, 0.4);
+  border-radius: $inner-rounding;
+}
+
+.cal-month-label {
+  font-weight: bold;
+  color: $primary;
+  margin-bottom: 6px;
+}
+
+.cal-widget {
+  background: transparent;
+  color: $on_surface;
+}
+
+window.NotificationCenter,
+window.NotificationPopup {
+  background: transparent;
+}
+
+.notif-root {
+  background-color: rgba($surface, 0.55);
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $rounding;
+  padding: 12px;
+}
+
+.notif-header {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba($outline_variant, 0.35);
+}
+
+.notif-title {
+  font-weight: bold;
+  color: $primary;
+}
+
+.notif-clear {
+  background: transparent;
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $inner-rounding;
+  padding: 4px 10px;
+  color: $on_surface;
+}
+
+.notif-clear:hover {
+  background-color: rgba($primary_container, 0.5);
+}
+
+.quick-root {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba($outline_variant, 0.35);
+}
+
+.quick-toggles {
+  margin-bottom: 8px;
+}
+
+.quick-toggle,
+.quick-battery {
+  min-height: 58px;
+  margin: 0 2px;
+  padding: 6px 8px;
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $inner-rounding;
+  background: transparent;
+  color: $on_surface;
+}
+
+.quick-toggle:hover,
+.quick-toggle.active {
+  border-color: $primary;
+  background-color: rgba($primary_container, 0.5);
+}
+
+.quick-toggle-icon {
+  color: $primary;
+  font-size: 1.25em;
+}
+
+.quick-toggle-label {
+  color: $on_surface;
+  font-size: 0.78em;
+}
+
+.quick-slider-row {
+  min-height: 34px;
+  padding: 2px 4px;
+}
+
+.quick-slider-row scale trough {
+  min-height: 4px;
+  border-radius: 4px;
+  background-color: rgba($surface_container, 0.7);
+}
+
+window.AudioMixerPopup {
+  background: transparent;
+}
+
+window.AudioMixerScrim {
+  background: rgba(0, 0, 0, 0.01);
+}
+
+.mixer-root {
+  background-color: rgba($surface, 0.55);
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $rounding;
+  padding: 12px;
+}
+
+.mixer-empty {
+  color: $on_surface;
+  padding: 12px 0;
+}
+
+.mixer-item {
+  padding: 6px 4px;
+  border-radius: $inner-rounding;
+}
+
+.mixer-system-item {
+  padding-bottom: 10px;
+}
+
+.mixer-divider {
+  min-height: 1px;
+  margin: 4px 0 8px 0;
+  background-color: rgba($outline_variant, 0.35);
+}
+
+.mixer-item-header {
+  margin-bottom: 4px;
+}
+
+.mixer-app-name {
+  color: $on_surface;
+  margin-left: 8px;
+}
+
+.mixer-route-button {
+  background: transparent;
+  border: 1px solid rgba($outline_variant, 0.4);
+  border-radius: $inner-rounding;
+  padding: 2px 8px;
+  color: $primary;
+}
+
+.mixer-route-button:hover {
+  background-color: rgba($primary_container, 0.5);
+}
+
+.mixer-route-list {
+  padding: 4px;
+  min-width: 180px;
+}
+
+.mixer-route-item {
+  background: transparent;
+  border-radius: $inner-rounding;
+  padding: 6px 8px;
+  color: $on_surface;
+}
+
+.mixer-route-item:hover {
+  background-color: rgba($primary_container, 0.5);
+}
+
+.mixer-route-item.active {
+  color: $primary;
+  font-weight: bold;
+}
+
+.mixer-slider-row {
+  min-height: 34px;
+  padding: 2px 4px;
+}
+
+.mixer-slider-row scale trough {
+  min-height: 4px;
+  border-radius: 4px;
+  background-color: rgba($surface_container, 0.7);
+}
+
+.mixer-icon-button {
+  background: transparent;
+  color: $primary;
+  padding: 4px;
+}
+
+.mixer-value {
+  color: $on_surface;
+  min-width: 34px;
+}
+
+.quick-slider-row scale highlight,
+.quick-slider-row scale slider {
+  background-color: $primary;
+}
+
+.quick-icon-button,
+.quick-slider-icon {
+  min-width: 32px;
+  padding: 3px;
+  color: $primary;
+}
+
+.quick-icon-button {
+  border: none;
+  border-radius: $inner-rounding;
+  background: transparent;
+}
+
+.quick-icon-button:hover {
+  background-color: rgba($primary_container, 0.5);
+}
+
+.quick-value {
+  min-width: 38px;
+  color: $on_surface_variant;
+  font-size: 0.85em;
+}
+
+.notif-empty {
+  padding: 20px;
+  color: $on_surface_variant;
+}
+
+.notif-item {
+  padding: 8px;
+  margin: 3px 0;
+  border-radius: $inner-rounding;
+  background-color: rgba($surface_container, 0.5);
+}
+
+.notif-item image {
+  margin-right: 10px;
+  color: $primary;
+}
+
+.notif-app {
+  font-weight: bold;
+  font-size: 0.85em;
+  color: $primary;
+}
+
+.notif-time {
+  font-size: 0.8em;
+  color: $on_surface_variant;
+}
+
+.notif-summary {
+  font-weight: bold;
+  color: $on_surface;
+}
+
+.notif-body {
+  font-size: 0.9em;
+  color: $on_surface_variant;
+}
+
+.notif-dismiss {
+  background: transparent;
+  border: none;
+  color: $on_surface_variant;
+  padding: 4px;
+}
+
+.notif-dismiss:hover {
+  color: $primary;
+}
+
+.toast-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: $inner-rounding;
+  background-color: rgba($surface, 0.85);
+  border: 1px solid rgba($outline_variant, 0.5);
+}
+
+.toast-item image {
+  margin-right: 10px;
+  color: $primary;
+}
+
+.toast-app {
+  font-weight: bold;
+  font-size: 0.85em;
+  color: $primary;
+}
+
+.toast-summary {
+  font-weight: bold;
+  color: $on_surface;
+}
+
+.toast-body {
+  font-size: 0.9em;
+  color: $on_surface_variant;
+}
