@@ -40,6 +40,10 @@ for file in "$CONFIG_DIR/hypr/scripts/"*; do
     [ -f "$file" ] && cp "$file" "$REPO_DIR/.config/hypr/scripts/"
 done
 
+echo "📁 Hypr themes..."
+mkdir -p "$REPO_DIR/.config/hypr/themes"
+cp -r "$CONFIG_DIR/hypr/themes/"* "$REPO_DIR/.config/hypr/themes/"
+
 echo "📁 Hypr lockscreen..."
 mkdir -p "$REPO_DIR/.config/hypr/lockscreen/test"
 for file in "$CONFIG_DIR/hypr/lockscreen/"*.{js,py,css} "$CONFIG_DIR/hypr/lockscreen/test/"*.js; do
