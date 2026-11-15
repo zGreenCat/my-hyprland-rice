@@ -5,22 +5,30 @@ import OMenu from "./widget/omenu/OMenu"
 import ObsidianHub from "./widget/obsidian/ObsidianHub"
 import WallpaperPicker from "./widget/wallpaper/WallpaperPicker"
 import Calendar from "./widget/calendar/Calendar"
-import NotificationCenter from "./widget/notifications/NotificationCenter"
+import ControlCenter, { CONTROL_WINDOW, showControlCenter } from "./widget/control/ControlCenter"
 import NotificationPopup from "./widget/notifications/NotificationPopup"
-import AudioMixer from "./widget/audiomixer/AudioMixer"
-import AudioMixerScrim from "./widget/audiomixer/AudioMixerScrim"
+import Scrim from "./widget/common/Scrim"
 
 app.start({
   css: style,
+  requestHandler(argv: string[], res: (response: string) => void) {
+    const [command, option] = argv
+    if (command === "control") {
+      showControlCenter(option === "mixer")
+      res("ok")
+      return
+    }
+    res(`comando desconocido: ${argv.join(" ")} (usa: control [mixer])`)
+  },
   main() {
     Clipboard()
     OMenu()
     ObsidianHub()
     WallpaperPicker()
     Calendar()
-    NotificationCenter()
+    Scrim("calendar")
+    ControlCenter()
+    Scrim(CONTROL_WINDOW)
     NotificationPopup()
-    AudioMixer()
-    AudioMixerScrim()
   },
 })

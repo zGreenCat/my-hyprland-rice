@@ -40,7 +40,7 @@
         //"mpris",
         "group/notify",
 	"custom/separator#dot-line",
-	"idle_inhibitor",
+	"custom/idle",
 	"custom/separator#blank",
 	"battery",
 	"custom/separator#blank",  

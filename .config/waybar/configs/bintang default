@@ -37,7 +37,7 @@
         //"mpris",
         //"custom/separator#dot-line",
         "group/notify",
-        "idle_inhibitor",
+        "custom/idle",
         "custom/separator#blank",
         "battery",
         "custom/separator#blank",

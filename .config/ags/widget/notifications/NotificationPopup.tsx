@@ -3,9 +3,11 @@ import app from "ags/gtk4/app"
 import { Astal, Gtk } from "ags/gtk4"
 import { createState, With } from "gnim"
 import { notifd, type Notification } from "./notifd"
+import { NotificationCard } from "../control/ControlCenter"
 
 const WINDOW_NAME = "notification-popup"
 const TOAST_TIMEOUT_MS = 5000
+const MAX_TOASTS = 3
 
 export default function NotificationPopup() {
   const [toasts, setToasts] = createState<Notification[]>([])
@@ -15,9 +17,10 @@ export default function NotificationPopup() {
   }
 
   notifd.connect("notified", (_self: unknown, id: number) => {
+    if (notifd.get_dont_disturb()) return
     const n = notifd.get_notification(id)
     if (!n) return
-    setToasts((list) => [...list.filter((x) => x.id !== id), n])
+    setToasts((list) => [n, ...list.filter((x) => x.id !== id)].slice(0, MAX_TOASTS))
     GLib.timeout_add(GLib.PRIORITY_DEFAULT, TOAST_TIMEOUT_MS, () => {
       removeToast(id)
       return GLib.SOURCE_REMOVE
@@ -25,6 +28,9 @@ export default function NotificationPopup() {
   })
 
   notifd.connect("resolved", (_self: unknown, id: number) => removeToast(id))
+  notifd.connect("notify::dont-disturb", () => {
+    if (notifd.get_dont_disturb()) setToasts([])
+  })
 
   return (
     <window
@@ -36,21 +42,16 @@ export default function NotificationPopup() {
       layer={Astal.Layer.TOP}
       keymode={Astal.Keymode.NONE}
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-      marginTop={40}
-      marginEnd={16}
+      marginTop={8}
+      marginEnd={10}
     >
-      <box orientation={Gtk.Orientation.VERTICAL} widthRequest={340}>
+      <box orientation={Gtk.Orientation.VERTICAL} widthRequest={380}>
         <With value={toasts}>
-          {(items) => (
-            <box orientation={Gtk.Orientation.VERTICAL}>
+          {(items: Notification[]) => (
+            <box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
               {items.map((n) => (
-                <box class="toast-item">
-                  <image iconName={n.appIcon || "dialog-information-symbolic"} pixelSize={28} />
-                  <box orientation={Gtk.Orientation.VERTICAL} hexpand>
-                    <label label={n.appName || "Notificación"} class="toast-app" halign={Gtk.Align.START} />
-                    <label label={n.summary} class="toast-summary" halign={Gtk.Align.START} wrap />
-                    {n.body ? <label label={n.body} class="toast-body" halign={Gtk.Align.START} wrap /> : ""}
-                  </box>
+                <box class="toast">
+                  <NotificationCard n={n} />
                 </box>
               ))}
             </box>

@@ -321,7 +321,7 @@
         },
         "scroll-step": 5,
         "on-click": "~/.config/hypr/scripts/toggle-mute-all.sh",
-        "on-click-right": "ags toggle audiomixer",
+        "on-click-right": "ags request control mixer",
         "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
         "tooltip-format": "{icon} {desc} | {volume}%",

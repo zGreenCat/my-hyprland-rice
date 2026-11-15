@@ -343,321 +343,358 @@ window.WallpaperPicker {
   border-radius: $inner-rounding;
 }
 
-window.CalendarPopup {
+// ─── Paneles de la barra: calendario, centro de control, avisos ───────────
+window.CalendarPopup,
+window.ControlCenter,
+window.NotificationPopup,
+window.Scrim {
   background: transparent;
 }
 
+@mixin cc-chip-button {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  min-height: 0;
+  min-width: 0;
+}
+
+// Calendario
 .cal-root {
-  background-color: rgba($surface, 0.55);
-  border: 1px solid rgba($outline_variant, 0.4);
-  border-radius: $rounding;
+  @include modal-panel;
+  padding: 18px 18px 14px;
+}
+
+.cal-today {
+  color: $on_surface_variant;
+  font-size: 0.9em;
+}
+
+.cal-title {
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.cal-nav {
+  @include cc-chip-button;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: $on_surface_variant;
+
+  &:hover {
+    background-color: rgba($on_surface, 0.08);
+    color: $on_surface;
+  }
+
+  &.dim {
+    opacity: 0.4;
+  }
+}
+
+.cal-dow {
+  padding-bottom: 4px;
+  color: $on_surface_variant;
+  font-size: 0.8em;
+}
+
+.cal-day {
+  padding: 6px 0;
+  border-radius: $inner-rounding;
+  font-feature-settings: "tnum";
+
+  &.weekend {
+    color: $on_surface_variant;
+  }
+
+  &.out {
+    color: rgba($on_surface, 0.3);
+  }
+
+  &.today {
+    background-color: $primary;
+    color: $on_primary;
+    font-weight: 600;
+  }
+}
+
+// Centro de control
+.cc-root {
+  @include modal-panel;
   padding: 16px;
 }
 
-.cal-panel {
-  padding: 0 12px;
+.cc-loading {
+  opacity: 0.6;
 }
 
-.cal-panel.current {
-  background-color: rgba($primary_container, 0.4);
+.cc-tile {
+  @include cc-chip-button;
+  padding: 10px 12px;
+  border-radius: $rounding * 1.2;
+  background-color: rgba($on_surface, 0.07);
+  color: $on_surface;
+  transition: background-color 150ms ease;
+
+  &:hover {
+    background-color: rgba($on_surface, 0.11);
+  }
+
+  .cc-tile-icon {
+    min-width: 34px;
+    min-height: 34px;
+    border-radius: 999px;
+    background-color: rgba($on_surface, 0.10);
+    color: $on_surface_variant;
+    font-size: 1.1em;
+  }
+
+  &.on .cc-tile-icon {
+    background-color: $primary;
+    color: $on_primary;
+  }
+}
+
+.cc-tile-title {
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.cc-tile-sub {
+  color: $on_surface_variant;
+  font-size: 0.82em;
+}
+
+.cc-sliders {
+  padding: 2px 2px 0;
+}
+
+.cc-slider {
+  scale {
+    padding: 0;
+    min-height: 26px;
+  }
+
+  scale trough {
+    min-height: 8px;
+    border-radius: 999px;
+    background: rgba($on_surface, 0.14);
+    background-image: none;
+    border: none;
+  }
+
+  scale highlight {
+    border-radius: 999px;
+    background: $primary;
+    background-image: none;
+    border: none;
+  }
+
+  scale slider {
+    min-width: 16px;
+    min-height: 16px;
+    margin: -5px 0;
+    border-radius: 999px;
+    background-color: $on_surface;
+    box-shadow: none;
+    border: none;
+  }
+
+  &.muted scale highlight {
+    background: rgba($on_surface, 0.3);
+  }
+
+  &.small scale trough {
+    min-height: 6px;
+  }
+}
+
+.cc-slider-icon {
+  @include cc-chip-button;
+  min-width: 28px;
+  padding: 2px;
+  border-radius: 999px;
+  color: $on_surface_variant;
+  font-size: 1.1em;
+
+  &:hover {
+    color: $on_surface;
+  }
+
+  &.static {
+    min-width: 32px;
+  }
+}
+
+.cc-slider-value {
+  color: $on_surface_variant;
+  font-size: 0.85em;
+  font-feature-settings: "tnum";
+}
+
+.cc-player {
+  padding: 10px 12px;
+  border-radius: $rounding * 1.2;
+  background-color: rgba($on_surface, 0.06);
+}
+
+.cc-player-art {
+  min-width: 44px;
+  min-height: 44px;
   border-radius: $inner-rounding;
-}
-
-.cal-month-label {
-  font-weight: bold;
+  background-color: rgba($primary, 0.22);
   color: $primary;
-  margin-bottom: 6px;
+  font-size: 1.4em;
 }
 
-.cal-widget {
-  background: transparent;
+.cc-player-title {
+  font-weight: 600;
+}
+
+.cc-player-artist {
+  color: $on_surface_variant;
+  font-size: 0.85em;
+}
+
+.cc-player-btn {
+  @include cc-chip-button;
+  padding: 4px 8px;
+  border-radius: 999px;
   color: $on_surface;
+  font-size: 1.1em;
+
+  &:hover {
+    background-color: rgba($on_surface, 0.08);
+  }
+
+  &.main {
+    background-color: rgba($primary, 0.18);
+    color: $primary;
+  }
 }
 
-window.NotificationCenter,
-window.NotificationPopup {
-  background: transparent;
+.cc-section-head {
+  @include cc-chip-button;
+  padding: 8px 4px;
+  color: $on_surface;
+  font-weight: 500;
 }
 
-.notif-root {
-  background-color: rgba($surface, 0.55);
-  border: 1px solid rgba($outline_variant, 0.4);
-  border-radius: $rounding;
-  padding: 12px;
+.cc-chevron {
+  color: $on_surface_variant;
 }
 
-.notif-header {
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgba($outline_variant, 0.35);
+.cc-mixer {
+  padding: 4px 4px 6px;
 }
 
-.notif-title {
-  font-weight: bold;
-  color: $primary;
+.cc-caption {
+  color: $on_surface_variant;
+  font-size: 0.75em;
+  letter-spacing: 1px;
 }
 
-.notif-clear {
-  background: transparent;
-  border: 1px solid rgba($outline_variant, 0.4);
+.cc-output {
+  @include cc-chip-button;
+  padding: 6px 12px;
   border-radius: $inner-rounding;
-  padding: 4px 10px;
-  color: $on_surface;
+  border: 1px solid rgba($on_surface, 0.12);
+  color: $on_surface_variant;
+
+  &.on {
+    border-color: $primary;
+    background-color: rgba($primary, 0.16);
+    color: $on_surface;
+  }
 }
 
-.notif-clear:hover {
-  background-color: rgba($primary_container, 0.5);
+.cc-stream-name {
+  font-size: 0.9em;
 }
 
-.quick-root {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba($outline_variant, 0.35);
-}
-
-.quick-toggles {
-  margin-bottom: 8px;
-}
-
-.quick-toggle,
-.quick-battery {
-  min-height: 58px;
-  margin: 0 2px;
-  padding: 6px 8px;
-  border: 1px solid rgba($outline_variant, 0.4);
-  border-radius: $inner-rounding;
-  background: transparent;
-  color: $on_surface;
-}
-
-.quick-toggle:hover,
-.quick-toggle.active {
-  border-color: $primary;
-  background-color: rgba($primary_container, 0.5);
-}
-
-.quick-toggle-icon {
-  color: $primary;
-  font-size: 1.25em;
-}
-
-.quick-toggle-label {
-  color: $on_surface;
-  font-size: 0.78em;
-}
-
-.quick-slider-row {
-  min-height: 34px;
-  padding: 2px 4px;
-}
-
-.quick-slider-row scale trough {
-  min-height: 4px;
-  border-radius: 4px;
-  background-color: rgba($surface_container, 0.7);
-}
-
-window.AudioMixerPopup {
-  background: transparent;
-}
-
-window.AudioMixerScrim {
-  background: rgba(0, 0, 0, 0.01);
-}
-
-.mixer-root {
-  background-color: rgba($surface, 0.55);
-  border: 1px solid rgba($outline_variant, 0.4);
-  border-radius: $rounding;
-  padding: 12px;
-}
-
-.mixer-empty {
-  color: $on_surface;
-  padding: 12px 0;
-}
-
-.mixer-item {
-  padding: 6px 4px;
-  border-radius: $inner-rounding;
-}
-
-.mixer-system-item {
-  padding-bottom: 10px;
-}
-
-.mixer-divider {
+.cc-divider {
   min-height: 1px;
-  margin: 4px 0 8px 0;
-  background-color: rgba($outline_variant, 0.35);
+  background-color: rgba($on_surface, 0.10);
 }
 
-.mixer-item-header {
-  margin-bottom: 4px;
+.cc-heading {
+  font-weight: 600;
 }
 
-.mixer-app-name {
-  color: $on_surface;
-  margin-left: 8px;
+.cc-link {
+  @include cc-chip-button;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba($on_surface, 0.14);
+  color: $on_surface_variant;
+  font-size: 0.82em;
+
+  &:hover {
+    color: $on_surface;
+  }
 }
 
-.mixer-route-button {
-  background: transparent;
-  border: 1px solid rgba($outline_variant, 0.4);
-  border-radius: $inner-rounding;
-  padding: 2px 8px;
-  color: $primary;
-}
-
-.mixer-route-button:hover {
-  background-color: rgba($primary_container, 0.5);
-}
-
-.mixer-route-list {
-  padding: 4px;
-  min-width: 180px;
-}
-
-.mixer-route-item {
-  background: transparent;
-  border-radius: $inner-rounding;
-  padding: 6px 8px;
-  color: $on_surface;
-}
-
-.mixer-route-item:hover {
-  background-color: rgba($primary_container, 0.5);
-}
-
-.mixer-route-item.active {
-  color: $primary;
-  font-weight: bold;
-}
-
-.mixer-slider-row {
-  min-height: 34px;
-  padding: 2px 4px;
-}
-
-.mixer-slider-row scale trough {
-  min-height: 4px;
-  border-radius: 4px;
-  background-color: rgba($surface_container, 0.7);
-}
-
-.mixer-icon-button {
-  background: transparent;
-  color: $primary;
-  padding: 4px;
-}
-
-.mixer-value {
-  color: $on_surface;
-  min-width: 34px;
-}
-
-.quick-slider-row scale highlight,
-.quick-slider-row scale slider {
-  background-color: $primary;
-}
-
-.quick-icon-button,
-.quick-slider-icon {
-  min-width: 32px;
-  padding: 3px;
-  color: $primary;
-}
-
-.quick-icon-button {
-  border: none;
-  border-radius: $inner-rounding;
-  background: transparent;
-}
-
-.quick-icon-button:hover {
-  background-color: rgba($primary_container, 0.5);
-}
-
-.quick-value {
-  min-width: 38px;
+.cc-group-head {
+  padding: 0 4px;
   color: $on_surface_variant;
   font-size: 0.85em;
 }
 
-.notif-empty {
-  padding: 20px;
+.cc-muted {
   color: $on_surface_variant;
 }
 
-.notif-item {
-  padding: 8px;
-  margin: 3px 0;
+.cc-empty {
+  padding: 10px 4px;
+}
+
+.cc-notif {
+  padding: 12px;
+  border-radius: $rounding * 1.2;
+  background-color: rgba($on_surface, 0.06);
+}
+
+.cc-notif-icon {
   border-radius: $inner-rounding;
-  background-color: rgba($surface_container, 0.5);
 }
 
-.notif-item image {
-  margin-right: 10px;
-  color: $primary;
-}
-
-.notif-app {
-  font-weight: bold;
-  font-size: 0.85em;
-  color: $primary;
-}
-
-.notif-time {
-  font-size: 0.8em;
+.cc-notif-app {
   color: $on_surface_variant;
+  font-size: 0.82em;
 }
 
-.notif-summary {
-  font-weight: bold;
-  color: $on_surface;
+.cc-notif-time {
+  color: $on_surface_variant;
+  font-size: 0.82em;
 }
 
-.notif-body {
+.cc-notif-summary {
+  font-weight: 600;
+}
+
+.cc-notif-body {
+  color: $on_surface_variant;
   font-size: 0.9em;
-  color: $on_surface_variant;
 }
 
-.notif-dismiss {
-  background: transparent;
-  border: none;
+.cc-notif-dismiss {
+  @include cc-chip-button;
+  padding: 2px 6px;
+  border-radius: 999px;
   color: $on_surface_variant;
+
+  &:hover {
+    background-color: rgba($on_surface, 0.08);
+    color: $on_surface;
+  }
+}
+
+// Avisos emergentes
+.toast {
+  @include modal-panel;
   padding: 4px;
-}
 
-.notif-dismiss:hover {
-  color: $primary;
-}
-
-.toast-item {
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: $inner-rounding;
-  background-color: rgba($surface, 0.85);
-  border: 1px solid rgba($outline_variant, 0.5);
-}
-
-.toast-item image {
-  margin-right: 10px;
-  color: $primary;
-}
-
-.toast-app {
-  font-weight: bold;
-  font-size: 0.85em;
-  color: $primary;
-}
-
-.toast-summary {
-  font-weight: bold;
-  color: $on_surface;
-}
-
-.toast-body {
-  font-size: 0.9em;
-  color: $on_surface_variant;
+  .cc-notif {
+    background: transparent;
+  }
 }

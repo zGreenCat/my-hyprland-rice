@@ -147,6 +147,7 @@ tooltip label {
 #custom-lock,
 #custom-hint,
 #custom-hypridle,
+#custom-idle,
 #custom-menu,
 #custom-playerctl,
 #custom-power_vertical,
@@ -176,7 +177,7 @@ tooltip label {
 }
 
 /*-----Indicators----*/
-#idle_inhibitor.activated {
+#custom-idle.on {
 	color: @surface_tint;
 }
 
