@@ -176,9 +176,8 @@ tooltip label {
 }
 
 /*-----Indicators----*/
-#custom-hypridle.notactive,
 #idle_inhibitor.activated {
-	color: #39FF14;
+	color: @surface_tint;
 }
 
 #pulseaudio.muted {

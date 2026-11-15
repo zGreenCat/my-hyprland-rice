@@ -188,12 +188,12 @@
 
 "idle_inhibitor": {
 	"tooltip": true,
-	"tooltip-format-activated": "Idle_inhibitor active",
-	"tooltip-format-deactivated": "Idle_inhibitor not active",
+	"tooltip-format-activated": "No bloquear: activo",
+	"tooltip-format-deactivated": "No bloquear: inactivo",
 	"format": "{icon}",
 	"format-icons": {
-		"activated": " ",
-		"deactivated": " ",
+		"activated": "󰅶",
+		"deactivated": "󰛊",
 	}
 },
 

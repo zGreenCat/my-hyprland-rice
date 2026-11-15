@@ -39,7 +39,9 @@
 "modules-right": [
         //"mpris",
         "group/notify",
-	"custom/separator#dot-line",   
+	"custom/separator#dot-line",
+	"idle_inhibitor",
+	"custom/separator#blank",
 	"battery",
 	"custom/separator#blank",  
 	"group/audio",
